@@ -1,0 +1,796 @@
+<Application xmlns="http://schemas.microsoft.com/windows/2009/Ribbon">
+
+  <Application.Commands>
+
+    <!-- Command declaration for Quick Access Toolbar. -->
+    <Command Name="ID_QAT"
+         Symbol="ID_QAT"/>
+    <Command Name="ID_CUSTOM_QAT"
+             Symbol="ID_CUSTOM_QAT"/>
+
+    <!-- Command declaration for File menu. -->
+    <Command Name="ID_FILE_MENU"
+             Symbol="ID_FILE_MENU"/>
+    <!-- Command declaration for most recently used items. -->
+    <Command Name="ID_FILE_MRUITEMS"
+             Symbol="ID_FILE_MRUITEMS"
+             LabelTitle="&amp;Recent items"/>
+    <!-- Command declarations for Application Menu items. -->
+    <Command Name="ID_FILE_NEW"
+             Symbol="ID_FILE_NEW"
+             LabelTitle="&amp;New">
+      <Command.LargeImages>
+        <Image Source="resources/new.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ID_FILE_OPEN"
+             Symbol="ID_FILE_OPEN"
+             Comment="Open"
+             LabelTitle="&amp;Open">
+      <Command.LargeImages>
+        <Image Source="resources/open.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdOpenMajorItems"
+             Comment="Open"
+             LabelTitle="Open"/>
+    <Command Name="ID_FILE_OPEN_ENTROPYGRID"
+             Symbol="ID_FILE_OPEN_ENTROPYGRID"
+             LabelTitle="Open &amp;entropy grid">
+      <Command.LargeImages>
+        <Image Source="resources/open.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ID_FILE_OPEN_LIFEGRID"
+             Symbol="ID_FILE_OPEN_LIFEGRID"
+             LabelTitle="Open &amp;life grid">
+      <Command.LargeImages>
+        <Image Source="resources/open.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ID_FILE_SAVE"
+             Symbol="ID_FILE_SAVE"
+             Comment="Save"
+             LabelTitle="&amp;Save">
+      <Command.LargeImages>
+        <Image Source="resources/save.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdSaveMajorItems"
+             Comment="Save"
+             LabelTitle="Save"/>
+    <Command Name="ID_FILE_SAVE_ENTROPYGRID"
+             Symbol="ID_FILE_SAVE_ENTROPYGRID"
+             LabelTitle="Save &amp;entropy grid">
+      <Command.LargeImages>
+        <Image Source="resources/save grid.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ID_FILE_SAVE_LIFEGRID"
+             Symbol="ID_FILE_SAVE_LIFEGRID"
+             LabelTitle="Save &amp;life grid">
+      <Command.LargeImages>
+        <Image Source="resources/save grid.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ID_FILE_INFO"
+             Symbol="ID_FILE_INFO"
+             LabelTitle="&amp;Info">
+      <Command.LargeImages>
+        <Image Source="resources/info (32).bmp" MinDPI="96"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/info (16).bmp" MinDPI="96"/>
+        <Image Source="resources/info (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="ID_FILE_EXIT"
+             Symbol="ID_FILE_EXIT"
+             LabelTitle="&amp;Exit">
+      <Command.LargeImages>
+        <Image Source="resources/exit.bmp"/>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name="ID_HELP"
+             Symbol="ID_HELP"/>
+
+
+    <Command Name="Tab_Home"
+             Symbol="Tab_Home"
+             LabelTitle="Home"
+             Keytip="H"/>
+    <Command Name="Group_Home_Options"
+             Symbol="Group_Home_Options"
+             LabelTitle="Options"/>
+    <Command Name="cmdHome_Options_Visualisation"
+             Symbol="cmdHome_Options_Visualisation"
+             LabelTitle="Visualisation"
+             TooltipTitle="Visualisation"
+             TooltipDescription="Toggles rendering to screen"
+             Keytip="V"/>
+    <Command Name="cmdHome_Options_OutputToFile"
+             Symbol="cmdHome_Options_OutputToFile"
+             LabelTitle="Output to file"
+             TooltipTitle="Output to file"
+             TooltipDescription="Toggles the output to file of the simulation"
+             Keytip="O"/>
+    <Command Name="cmdHome_Options_Paint"
+             Symbol="cmdHome_Options_Paint"
+             LabelTitle="Paint"
+             TooltipTitle="Paint"
+             TooltipDescription="Toggles painting"
+             Keytip ="P">
+      <Command.LargeImages>
+        <Image Source="resources/paint (32).bmp" MinDPI="96"/>
+        <Image Source="resources/paint (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/paint (16).bmp" MinDPI="96"/>
+        <Image Source="resources/paint (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name="Group_Home_Commands"
+             Symbol="Group_Home_Commands"
+             LabelTitle="Commands"/>
+    <Command Name="Group_Home_Commands_Running"
+         Symbol="Group_Home_Commands_Running"
+         LabelTitle="Commands"/>
+    <Command Name="cmdHome_Commands_Run"
+             Symbol="cmdHome_Commands_Run"
+             LabelTitle="Run"
+             TooltipTitle="Run"
+             TooltipDescription="Runs the simulation"
+             Keytip="R">
+      <!--Attribution: Icons-Land URL: http://www.icons-land.com-->
+      <Command.LargeImages>
+        <Image Source="resources/run (32).bmp" MinDPI="96"/>
+        <Image Source="resources/run (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/run (16).bmp" MinDPI="96"/>
+        <Image Source="resources/run (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_Commands_Stop"
+             Symbol="cmdHome_Commands_Stop"
+             LabelTitle="Stop"
+             TooltipTitle="Stop"
+             TooltipDescription="Stops the simulation"
+             Keytip="R">
+      <!--Attribution: Icons-Land URL: http://www.icons-land.com-->
+      <Command.LargeImages>
+        <Image Source="resources/stop (32).bmp" MinDPI="96"/>
+        <Image Source="resources/stop (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/stop (16).bmp" MinDPI="96"/>
+        <Image Source="resources/stop (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_Commands_NextStep"
+             Symbol="cmdHome_Commands_NextStep"
+             LabelTitle="Next step"
+             TooltipTitle="Next step"
+             TooltipDescription="Moves the simulation forward by one generation"
+             Keytip="N">
+      <!--Attribution: Icons-Land URL: http://www.icons-land.com-->
+      <Command.LargeImages>
+        <Image Source="resources/next step (32).bmp" MinDPI="96"/>
+        <Image Source="resources/next step (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/next step (16).bmp" MinDPI="96"/>
+        <Image Source="resources/next step (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_Commands_ClearSplitButton"
+             Symbol="cmdHome_Commands_ClearSplitButton"
+             LabelTitle="Clear"
+             Keytip="C">
+    </Command>
+    <Command Name="cmdHome_Commands_Clear"
+             Symbol="cmdHome_Commands_Clear"
+             LabelTitle="Clear"
+             TooltipTitle="Clear"
+             TooltipDescription="Clear all grids"
+             Keytip="C">
+      <Command.LargeImages>
+        <Image Source="resources/clear.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdClearMajorItems"
+             Comment="Clear Options"
+             LabelTitle="Options"/>
+    <Command Name="cmdHome_Commands_ClearEntropyGrid"
+             Symbol="cmdHome_Commands_ClearEntropyGrid"
+             LabelTitle="Entropy grid">
+      <Command.LargeImages>
+        <Image Source="resources/clear.bmp"/>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdHome_Commands_ClearLifeGrid"
+             Symbol="cmdHome_Commands_ClearLifeGrid"
+             LabelTitle="Life grid">
+      <Command.LargeImages>
+        <Image Source="resources/clear.bmp"/>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name="Group_Home_Ruleset"
+             Symbol="Group_Home_Ruleset"
+             LabelTitle="Ruleset"/>
+    <Command Name="cmdHome_Ruleset_RandomNumberFunction"
+             Symbol="cmdHome_Ruleset_RandomNumberFunction"
+             LabelTitle="Random no. fn."
+             TooltipTitle="Random number function"
+             TooltipDescription="Selects either the fast 'Ran' or the cryptographically secure 'rand_s' function for the generation of random numbers"
+             Keytip="F"/>
+    <Command Name="cmdHome_Ruleset_PeriodicBoundaryConditions"
+             Symbol="cmdHome_Ruleset_PeriodicBoundaryConditions"
+             LabelTitle="Periodic boundary conditions"
+             TooltipTitle="Periodic boundary conditions"
+             TooltipDescription="Surface topology: either flat or toroidal"
+             Keytip="S"/>
+
+    <Command Name="Group_Home_EntropyGrid"
+             Symbol="Group_Home_EntropyGrid"
+             LabelTitle="Entropy Grid"/>
+    <Command Name="cmdHome_EntropyGrid_Initialisation"
+             Symbol="cmdHome_EntropyGrid_Initialisation"
+             LabelTitle="Initialisation"
+             TooltipTitle="Initialisation"
+             TooltipDescription="Determines how the values of the entropy grid will be initialised">
+      <Command.LargeImages>
+        <Image Source="resources/initialisation (32).bmp" MinDPI="96"/>
+        <!--<Image Source="resources/initialisation (64).bmp" MinDPI="192"/>-->
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/initialisation (16).bmp" MinDPI="96"/>
+        <Image Source="resources/initialisation (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_InitialisationVariable1"
+             Symbol="cmdHome_EntropyGrid_InitialisationVariable1"
+             LabelTitle="Min"
+             TooltipTitle="Min"
+             TooltipDescription="Min">
+      <Command.LargeImages>
+        <Image Source="resources/min (32).bmp" MinDPI="96"/>
+        <Image Source="resources/min (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/min (16).bmp" MinDPI="96"/>
+        <Image Source="resources/min (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_InitialisationVariable2"
+         Symbol="cmdHome_EntropyGrid_InitialisationVariable2"
+         LabelTitle="Max"
+         TooltipTitle="Max"
+         TooltipDescription="Max">
+      <Command.LargeImages>
+        <Image Source="resources/max (32).bmp" MinDPI="96"/>
+        <Image Source="resources/max (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/max (16).bmp" MinDPI="96"/>
+        <Image Source="resources/max (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_Mean"
+             Symbol="cmdHome_EntropyGrid_Mean"
+             LabelTitle="Mean"
+             TooltipTitle="Mean"
+             TooltipDescription="Mean">
+      <Command.LargeImages>
+        <Image Source="resources/mean (32).bmp" MinDPI="96"/>
+        <Image Source="resources/mean (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/mean (16).bmp" MinDPI="96"/>
+        <Image Source="resources/mean (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_Variance"
+             Symbol="cmdHome_EntropyGrid_Variance"
+             LabelTitle="Variance"
+             TooltipTitle="Variance"
+             TooltipDescription="Variance">
+      <Command.LargeImages>
+        <Image Source="resources/variance (32).bmp" MinDPI="96"/>
+        <Image Source="resources/variance (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/variance (16).bmp" MinDPI="96"/>
+        <Image Source="resources/variance (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_Dissipation"
+             Symbol="cmdHome_EntropyGrid_Dissipation"
+             LabelTitle="Dissipation"
+             TooltipTitle="Dissipation"
+             TooltipDescription="Dissipation"
+             Keytip="D">
+      <Command.LargeImages>
+        <Image Source="resources/dissipation (32).bmp" MinDPI="96"/>
+        <Image Source="resources/dissipation (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/dissipation (16).bmp" MinDPI="96"/>
+        <Image Source="resources/dissipation (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_EntropyGrid_Initialise"
+             Symbol="cmdHome_EntropyGrid_Initialise"
+             LabelTitle="Initialise"
+             TooltipTitle="Initialise"
+             TooltipDescription="Initialises the entropy grid with the selected settings"
+             Keytip="E">
+      <Command.LargeImages>
+        <Image Source="resources/initialise entropy.bmp"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/initialise entropy (small).bmp"/>
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name="Group_Home_LifeGrid"
+             Symbol="Group_Home_LifeGrid"
+             LabelTitle="Life Grid"/>
+    <Command Name="cmdHome_LifeGrid_Population"
+             Symbol="cmdHome_LifeGrid_Population"
+             LabelTitle="Population"
+             TooltipTitle="Population"
+             TooltipDescription="Initial population"
+             Keytip="=">
+      <Command.LargeImages>
+        <Image Source="resources/population (32).bmp" MinDPI="96"/>
+        <Image Source="resources/population (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/population (16).bmp" MinDPI="96"/>
+        <Image Source="resources/population (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_LifeGrid_Intelligence"
+             Symbol="cmdHome_LifeGrid_Intelligence"
+             LabelTitle="Intelligence"
+             TooltipTitle="Intelligence"
+             TooltipDescription="Intelligence"
+             Keytip="I"/>
+    <Command Name="cmdHome_LifeGrid_Bias"
+             Symbol="cmdHome_LifeGrid_Bias"
+             LabelTitle="Bias"
+             Keytip="B"/>
+    <Command Name="cmdHome_LifeGrid_ReproductionRate"
+             Symbol="cmdHome_LifeGrid_ReproductionRate"
+             LabelTitle="Reproduction rate"
+             TooltipTitle="Reproduction rate"
+             TooltipDescription="Reproduction rate"
+             Keytip="+">
+      <!--Attribution: Jojo Mendoza URL: http://www.deleket.com/-->
+      <Command.LargeImages>
+        <Image Source="resources/reproduction rate (32).bmp" MinDPI="96"/>
+        <Image Source="resources/reproduction rate (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/reproduction rate (16).bmp" MinDPI="96"/>
+        <Image Source="resources/reproduction rate (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_LifeGrid_DeathRate"
+             Symbol="cmdHome_LifeGrid_DeathRate"
+             LabelTitle="Death rate"
+             TooltipTitle="Death rate"
+             TooltipDescription="Death rate"
+             Keytip="-">
+      <!--Attribution: Jojo Mendoza URL: http://www.deleket.com/-->
+      <Command.LargeImages>
+        <Image Source="resources/death rate (32).bmp" MinDPI="96"/>
+        <Image Source="resources/death rate (64).bmp" MinDPI="192"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/death rate (16).bmp" MinDPI="96"/>
+        <Image Source="resources/death rate (32).bmp" MinDPI="192"/>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdHome_LifeGrid_Initialise"
+             Symbol="cmdHome_LifeGrid_Initialise"
+             LabelTitle="Initialise"
+             TooltipTitle="Initialise"
+             TooltipDescription="Initialises the life grid with the selected settings"
+             Keytip="L">
+      <Command.LargeImages>
+        <Image Source="resources/initialise life.bmp"/>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="resources/initialise life (small).bmp"/>
+      </Command.SmallImages>
+    </Command>
+
+
+    <Command Name='cmdContextualTabGroup_Paint'
+             LabelTitle=' '
+             Symbol='cmdContextualTabGroup_Paint'/>
+    <Command Name="Tab_Paint"
+             Symbol="Tab_Paint"
+             LabelTitle="Paint"
+             Keytip ="P"/>
+    <Command Name="Group_Paint_Options"
+             Symbol="Group_Paint_Options"
+             LabelTitle="Options"/>
+    <Command Name="cmdPaintEntropy"
+             Symbol="cmdPaintEntropy"
+             LabelTitle="Entropy"/>
+    <Command Name="cmdPaintLife"
+             Symbol="cmdPaintLife"
+             LabelTitle="Life"/>
+    <Command Name="cmdPaint_Options_Layer"
+             Symbol="cmdPaint_Options_Layer"
+             LabelTitle="Layer"
+             TooltipTitle="Layer"
+             TooltipDescription="Layer to paint on"
+             Keytip="L">
+      <Command.LargeImages>
+        <Image Source="resources/layer.bmp"/>
+      </Command.LargeImages>
+    </Command>
+
+  </Application.Commands>
+
+  <Application.Views>
+    <Ribbon>
+      <Ribbon.SizeDefinitions>
+        <SizeDefinition Name="Options">
+          <ControlNameMap>
+            <ControlNameDefinition Name="tickbox1"/>
+            <ControlNameDefinition Name="tickbox2"/>
+            <ControlNameDefinition Name="button1"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox2"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Large"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox2"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Small"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="Ruleset">
+          <ControlNameMap>
+            <ControlNameDefinition Name="combobox1"/>
+            <ControlNameDefinition Name="tickbox1"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="EntropyGrid">
+          <ControlNameMap>
+            <ControlNameDefinition Name="combobox1"/>
+            <ControlNameDefinition Name="combobox2"/>
+            <ControlNameDefinition Name="combobox3"/>
+            <ControlNameDefinition Name="combobox4"/>
+            <ControlNameDefinition Name="button1"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox4"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ColumnBreak ShowSeparator="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Large"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox4"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Small"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="false" />
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="combobox4"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="false" />
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Small"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="LifeGrid">
+          <ControlNameMap>
+            <ControlNameDefinition Name="combobox1"/>
+            <ControlNameDefinition Name="combobox2"/>
+            <ControlNameDefinition Name="combobox3"/>
+            <ControlNameDefinition Name="tickbox1"/>
+            <ControlNameDefinition Name="tickbox2"/>
+            <ControlNameDefinition Name="button1"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox2"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ColumnBreak ShowSeparator="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Large"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox2"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Small"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="combobox2"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="combobox3"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="tickbox1"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="tickbox2"
+                                   IsImageVisible="false"
+                                   IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="button1"
+                                   ImageSize="Small"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="PaintOptions">
+          <ControlNameMap>
+            <ControlNameDefinition Name="combobox1"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="combobox1"
+                                   IsImageVisible="true"
+                                   IsLabelVisible="false"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+      </Ribbon.SizeDefinitions>
+
+      <Ribbon.QuickAccessToolbar>
+        <QuickAccessToolbar CommandName="ID_QAT"
+                            CustomizeCommandName="ID_CUSTOM_QAT">
+          <QuickAccessToolbar.ApplicationDefaults>
+            <Button CommandName="ID_FILE_SAVE_ENTROPYGRID"/>
+          </QuickAccessToolbar.ApplicationDefaults>
+        </QuickAccessToolbar>
+      </Ribbon.QuickAccessToolbar>
+
+      <Ribbon.HelpButton>
+        <HelpButton CommandName="ID_HELP"/>
+      </Ribbon.HelpButton>
+
+      <Ribbon.ApplicationMenu>
+        <ApplicationMenu CommandName="ID_FILE_MENU">
+          <!-- Most recently used items collection. -->
+          <ApplicationMenu.RecentItems>
+            <RecentItems CommandName="ID_FILE_MRUITEMS" EnablePinning='true' MaxCount='10'/>
+          </ApplicationMenu.RecentItems>
+          <!-- Menu items collection. -->
+          <MenuGroup>
+            <Button CommandName="ID_FILE_NEW"/>
+
+            <SplitButton>
+              <SplitButton.ButtonItem>
+                <Button CommandName="ID_FILE_OPEN"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="cmdOpenMajorItems"
+                           Class="MajorItems">
+                  <Button CommandName="ID_FILE_OPEN_ENTROPYGRID"/>
+                  <Button CommandName="ID_FILE_OPEN_LIFEGRID"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+
+            <SplitButton>
+              <SplitButton.ButtonItem>
+                <Button CommandName="ID_FILE_SAVE"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="cmdSaveMajorItems"
+                           Class="MajorItems">
+                  <Button CommandName="ID_FILE_SAVE_ENTROPYGRID"/>
+                  <Button CommandName="ID_FILE_SAVE_LIFEGRID"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+
+          </MenuGroup>
+          <MenuGroup>
+            <Button CommandName="ID_FILE_INFO"/>
+           </MenuGroup>
+           <MenuGroup>
+            <Button CommandName="ID_FILE_EXIT"/>
+          </MenuGroup>
+        </ApplicationMenu>
+      </Ribbon.ApplicationMenu>
+
+      <Ribbon.Tabs>
+        <Tab CommandName="Tab_Home">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="Group_Home_Options" Size="Medium"/>
+                <Scale Group="Group_Home_Commands" Size="Large"/>
+                <Scale Group="Group_Home_Ruleset" Size="Large"/>
+                <Scale Group="Group_Home_EntropyGrid" Size="Large"/>
+                <Scale Group="Group_Home_LifeGrid" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="Group_Home_LifeGrid" Size="Medium"/>
+              <Scale Group="Group_Home_EntropyGrid" Size="Medium"/>
+              <Scale Group="Group_Home_Commands" Size="Medium"/>
+              <Scale Group="Group_Home_LifeGrid" Size="Small"/>
+              <Scale Group="Group_Home_EntropyGrid" Size="Small"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="Group_Home_Options" SizeDefinition="Options">
+            <CheckBox CommandName="cmdHome_Options_Visualisation"/>
+            <CheckBox CommandName="cmdHome_Options_OutputToFile"/>
+            <ToggleButton CommandName="cmdHome_Options_Paint"/>
+          </Group>
+          <Group CommandName="Group_Home_Commands" SizeDefinition="ThreeButtons">
+            <ToggleButton CommandName="cmdHome_Commands_Run"/>
+            <Button CommandName="cmdHome_Commands_NextStep"/>
+            <SplitButton CommandName="cmdHome_Commands_ClearSplitButton">
+              <SplitButton.ButtonItem>
+                <Button CommandName="cmdHome_Commands_Clear"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="cmdClearMajorItems"
+                           Class="MajorItems">
+                  <Button CommandName="cmdHome_Commands_ClearEntropyGrid"/>
+                  <Button CommandName="cmdHome_Commands_ClearLifeGrid"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+          </Group>
+          <Group CommandName="Group_Home_Commands_Running" SizeDefinition="ThreeButtons" ApplicationModes="1">
+            <ToggleButton CommandName="cmdHome_Commands_Stop"/>
+            <Button CommandName="cmdHome_Commands_NextStep"/>
+            <Button CommandName="cmdHome_Commands_Clear"/>
+          </Group>
+          <Group CommandName="Group_Home_Ruleset" SizeDefinition="Ruleset">
+            <ComboBox CommandName="cmdHome_Ruleset_RandomNumberFunction"
+                      IsEditable = "false"/>
+            <CheckBox CommandName="cmdHome_Ruleset_PeriodicBoundaryConditions"/>
+          </Group>
+          <Group CommandName="Group_Home_EntropyGrid" SizeDefinition="EntropyGrid">
+
+            <ComboBox CommandName="cmdHome_EntropyGrid_Initialisation"
+                      IsEditable = "false"/>
+            <ComboBox CommandName="cmdHome_EntropyGrid_InitialisationVariable1"
+                      IsEditable = "true"/>
+            <ComboBox CommandName="cmdHome_EntropyGrid_InitialisationVariable2"
+                      IsEditable = "true"/>
+            <ComboBox CommandName="cmdHome_EntropyGrid_Dissipation"
+                      IsEditable = "false"/>
+            <Button CommandName="cmdHome_EntropyGrid_Initialise"/>
+          </Group>
+          <Group CommandName="Group_Home_LifeGrid" SizeDefinition="LifeGrid">
+            <ComboBox CommandName="cmdHome_LifeGrid_Population"
+                      IsEditable = "true"/>
+            <ComboBox CommandName="cmdHome_LifeGrid_ReproductionRate"
+                      IsEditable = "true"/>
+            <ComboBox CommandName="cmdHome_LifeGrid_DeathRate"
+                      IsEditable = "true"/>
+            <CheckBox CommandName="cmdHome_LifeGrid_Intelligence"/>
+            <CheckBox CommandName="cmdHome_LifeGrid_Bias"/>
+            <Button CommandName="cmdHome_LifeGrid_Initialise"/>
+          </Group>
+        </Tab>
+      </Ribbon.Tabs>
+      <Ribbon.ContextualTabs>
+        <TabGroup CommandName='cmdContextualTabGroup_Paint'>
+          <Tab CommandName="Tab_Paint">
+            <Tab.ScalingPolicy>
+              <ScalingPolicy>
+                <ScalingPolicy.IdealSizes>
+                  <Scale Group="Group_Paint_Options" Size="Large"/>
+                </ScalingPolicy.IdealSizes>
+                <Scale Group="Group_Paint_Options" Size="Medium"/>
+              </ScalingPolicy>
+            </Tab.ScalingPolicy>
+            <Group CommandName="Group_Paint_Options" SizeDefinition="PaintOptions">
+                <ComboBox CommandName="cmdPaint_Options_Layer"
+                          IsEditable = "false"/>
+            </Group>
+          </Tab>
+        </TabGroup>
+      </Ribbon.ContextualTabs>
+    </Ribbon>
+  </Application.Views>
+
+</Application>

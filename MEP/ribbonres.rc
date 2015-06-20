@@ -1,0 +1,668 @@
+// ******************************************************************************
+// * This is an automatically generated file containing the ribbon resource for *
+// * your application.                                                          *
+// ******************************************************************************
+
+#include ".\ribbonres.h"
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRUITEMS_LabelTitle_RESID L"&Recent items" /* LabelTitle ID_FILE_MRUITEMS_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW_LabelTitle_RESID L"&New" /* LabelTitle ID_FILE_NEW_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_NEW_LargeImages_RESID    BITMAP    "resources\\new.bmp" /* LargeImages ID_FILE_NEW_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_OPEN_LabelTitle_RESID L"&Open" /* LabelTitle ID_FILE_OPEN_LabelTitle_RESID: Open */
+END
+
+ID_FILE_OPEN_LargeImages_RESID    BITMAP    "resources\\open.bmp" /* LargeImages ID_FILE_OPEN_LargeImages_RESID: Open */
+STRINGTABLE 
+BEGIN
+    cmdOpenMajorItems_LabelTitle_RESID L"Open" /* LabelTitle cmdOpenMajorItems_LabelTitle_RESID: Open */
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_OPEN_ENTROPYGRID_LabelTitle_RESID L"Open &entropy grid" /* LabelTitle ID_FILE_OPEN_ENTROPYGRID_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_OPEN_ENTROPYGRID_LargeImages_RESID    BITMAP    "resources\\open.bmp" /* LargeImages ID_FILE_OPEN_ENTROPYGRID_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_OPEN_LIFEGRID_LabelTitle_RESID L"Open &life grid" /* LabelTitle ID_FILE_OPEN_LIFEGRID_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_OPEN_LIFEGRID_LargeImages_RESID    BITMAP    "resources\\open.bmp" /* LargeImages ID_FILE_OPEN_LIFEGRID_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_SAVE_LabelTitle_RESID L"&Save" /* LabelTitle ID_FILE_SAVE_LabelTitle_RESID: Save */
+END
+
+ID_FILE_SAVE_LargeImages_RESID    BITMAP    "resources\\save.bmp" /* LargeImages ID_FILE_SAVE_LargeImages_RESID: Save */
+STRINGTABLE 
+BEGIN
+    cmdSaveMajorItems_LabelTitle_RESID L"Save" /* LabelTitle cmdSaveMajorItems_LabelTitle_RESID: Save */
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_SAVE_ENTROPYGRID_LabelTitle_RESID L"Save &entropy grid" /* LabelTitle ID_FILE_SAVE_ENTROPYGRID_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_SAVE_ENTROPYGRID_LargeImages_RESID    BITMAP    "resources\\save grid.bmp" /* LargeImages ID_FILE_SAVE_ENTROPYGRID_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_SAVE_LIFEGRID_LabelTitle_RESID L"Save &life grid" /* LabelTitle ID_FILE_SAVE_LIFEGRID_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_SAVE_LIFEGRID_LargeImages_RESID    BITMAP    "resources\\save grid.bmp" /* LargeImages ID_FILE_SAVE_LIFEGRID_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_INFO_LabelTitle_RESID L"&Info" /* LabelTitle ID_FILE_INFO_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_INFO_SmallImages_96__RESID    BITMAP    "resources\\info (16).bmp" /* SmallImages ID_FILE_INFO_SmallImages_96__RESID: (null) */
+ID_FILE_INFO_SmallImages_192__RESID    BITMAP    "resources\\info (32).bmp" /* SmallImages ID_FILE_INFO_SmallImages_192__RESID: (null) */
+ID_FILE_INFO_LargeImages_96__RESID    BITMAP    "resources\\info (32).bmp" /* LargeImages ID_FILE_INFO_LargeImages_96__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    ID_FILE_EXIT_LabelTitle_RESID L"&Exit" /* LabelTitle ID_FILE_EXIT_LabelTitle_RESID: (null) */
+END
+
+ID_FILE_EXIT_LargeImages_RESID    BITMAP    "resources\\exit.bmp" /* LargeImages ID_FILE_EXIT_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    Tab_Home_LabelTitle_RESID L"Home" /* LabelTitle Tab_Home_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Tab_Home_Keytip_RESID L"H" /* Keytip Tab_Home_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Group_Home_Options_LabelTitle_RESID L"Options" /* LabelTitle Group_Home_Options_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Visualisation_LabelTitle_RESID L"Visualisation" /* LabelTitle cmdHome_Options_Visualisation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Visualisation_Keytip_RESID L"V" /* Keytip cmdHome_Options_Visualisation_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Visualisation_TooltipTitle_RESID L"Visualisation" /* TooltipTitle cmdHome_Options_Visualisation_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Visualisation_TooltipDescription_RESID L"Toggles rendering to screen" /* TooltipDescription cmdHome_Options_Visualisation_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_OutputToFile_LabelTitle_RESID L"Output to file" /* LabelTitle cmdHome_Options_OutputToFile_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_OutputToFile_Keytip_RESID L"O" /* Keytip cmdHome_Options_OutputToFile_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_OutputToFile_TooltipTitle_RESID L"Output to file" /* TooltipTitle cmdHome_Options_OutputToFile_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_OutputToFile_TooltipDescription_RESID L"Toggles the output to file of the simulation" /* TooltipDescription cmdHome_Options_OutputToFile_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Paint_LabelTitle_RESID L"Paint" /* LabelTitle cmdHome_Options_Paint_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Paint_Keytip_RESID L"P" /* Keytip cmdHome_Options_Paint_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Paint_TooltipTitle_RESID L"Paint" /* TooltipTitle cmdHome_Options_Paint_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Options_Paint_TooltipDescription_RESID L"Toggles painting" /* TooltipDescription cmdHome_Options_Paint_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_Options_Paint_SmallImages_96__RESID    BITMAP    "resources\\paint (16).bmp" /* SmallImages cmdHome_Options_Paint_SmallImages_96__RESID: (null) */
+cmdHome_Options_Paint_SmallImages_192__RESID    BITMAP    "resources\\paint (32).bmp" /* SmallImages cmdHome_Options_Paint_SmallImages_192__RESID: (null) */
+cmdHome_Options_Paint_LargeImages_96__RESID    BITMAP    "resources\\paint (32).bmp" /* LargeImages cmdHome_Options_Paint_LargeImages_96__RESID: (null) */
+cmdHome_Options_Paint_LargeImages_192__RESID    BITMAP    "resources\\paint (64).bmp" /* LargeImages cmdHome_Options_Paint_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    Group_Home_Commands_LabelTitle_RESID L"Commands" /* LabelTitle Group_Home_Commands_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Group_Home_Commands_Running_LabelTitle_RESID L"Commands" /* LabelTitle Group_Home_Commands_Running_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Run_LabelTitle_RESID L"Run" /* LabelTitle cmdHome_Commands_Run_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Run_Keytip_RESID L"R" /* Keytip cmdHome_Commands_Run_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Run_TooltipTitle_RESID L"Run" /* TooltipTitle cmdHome_Commands_Run_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Run_TooltipDescription_RESID L"Runs the simulation" /* TooltipDescription cmdHome_Commands_Run_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_Commands_Run_SmallImages_96__RESID    BITMAP    "resources\\run (16).bmp" /* SmallImages cmdHome_Commands_Run_SmallImages_96__RESID: (null) */
+cmdHome_Commands_Run_SmallImages_192__RESID    BITMAP    "resources\\run (32).bmp" /* SmallImages cmdHome_Commands_Run_SmallImages_192__RESID: (null) */
+cmdHome_Commands_Run_LargeImages_96__RESID    BITMAP    "resources\\run (32).bmp" /* LargeImages cmdHome_Commands_Run_LargeImages_96__RESID: (null) */
+cmdHome_Commands_Run_LargeImages_192__RESID    BITMAP    "resources\\run (64).bmp" /* LargeImages cmdHome_Commands_Run_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Stop_LabelTitle_RESID L"Stop" /* LabelTitle cmdHome_Commands_Stop_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Stop_Keytip_RESID L"R" /* Keytip cmdHome_Commands_Stop_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Stop_TooltipTitle_RESID L"Stop" /* TooltipTitle cmdHome_Commands_Stop_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Stop_TooltipDescription_RESID L"Stops the simulation" /* TooltipDescription cmdHome_Commands_Stop_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_Commands_Stop_SmallImages_96__RESID    BITMAP    "resources\\stop (16).bmp" /* SmallImages cmdHome_Commands_Stop_SmallImages_96__RESID: (null) */
+cmdHome_Commands_Stop_SmallImages_192__RESID    BITMAP    "resources\\stop (32).bmp" /* SmallImages cmdHome_Commands_Stop_SmallImages_192__RESID: (null) */
+cmdHome_Commands_Stop_LargeImages_96__RESID    BITMAP    "resources\\stop (32).bmp" /* LargeImages cmdHome_Commands_Stop_LargeImages_96__RESID: (null) */
+cmdHome_Commands_Stop_LargeImages_192__RESID    BITMAP    "resources\\stop (64).bmp" /* LargeImages cmdHome_Commands_Stop_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_NextStep_LabelTitle_RESID L"Next step" /* LabelTitle cmdHome_Commands_NextStep_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_NextStep_Keytip_RESID L"N" /* Keytip cmdHome_Commands_NextStep_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_NextStep_TooltipTitle_RESID L"Next step" /* TooltipTitle cmdHome_Commands_NextStep_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_NextStep_TooltipDescription_RESID L"Moves the simulation forward by one generation" /* TooltipDescription cmdHome_Commands_NextStep_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_Commands_NextStep_SmallImages_96__RESID    BITMAP    "resources\\next step (16).bmp" /* SmallImages cmdHome_Commands_NextStep_SmallImages_96__RESID: (null) */
+cmdHome_Commands_NextStep_SmallImages_192__RESID    BITMAP    "resources\\next step (32).bmp" /* SmallImages cmdHome_Commands_NextStep_SmallImages_192__RESID: (null) */
+cmdHome_Commands_NextStep_LargeImages_96__RESID    BITMAP    "resources\\next step (32).bmp" /* LargeImages cmdHome_Commands_NextStep_LargeImages_96__RESID: (null) */
+cmdHome_Commands_NextStep_LargeImages_192__RESID    BITMAP    "resources\\next step (64).bmp" /* LargeImages cmdHome_Commands_NextStep_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_ClearSplitButton_LabelTitle_RESID L"Clear" /* LabelTitle cmdHome_Commands_ClearSplitButton_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_ClearSplitButton_Keytip_RESID L"C" /* Keytip cmdHome_Commands_ClearSplitButton_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Clear_LabelTitle_RESID L"Clear" /* LabelTitle cmdHome_Commands_Clear_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Clear_Keytip_RESID L"C" /* Keytip cmdHome_Commands_Clear_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Clear_TooltipTitle_RESID L"Clear" /* TooltipTitle cmdHome_Commands_Clear_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_Clear_TooltipDescription_RESID L"Clear all grids" /* TooltipDescription cmdHome_Commands_Clear_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_Commands_Clear_LargeImages_RESID    BITMAP    "resources\\clear.bmp" /* LargeImages cmdHome_Commands_Clear_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdClearMajorItems_LabelTitle_RESID L"Options" /* LabelTitle cmdClearMajorItems_LabelTitle_RESID: Clear Options */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_ClearEntropyGrid_LabelTitle_RESID L"Entropy grid" /* LabelTitle cmdHome_Commands_ClearEntropyGrid_LabelTitle_RESID: (null) */
+END
+
+cmdHome_Commands_ClearEntropyGrid_LargeImages_RESID    BITMAP    "resources\\clear.bmp" /* LargeImages cmdHome_Commands_ClearEntropyGrid_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_Commands_ClearLifeGrid_LabelTitle_RESID L"Life grid" /* LabelTitle cmdHome_Commands_ClearLifeGrid_LabelTitle_RESID: (null) */
+END
+
+cmdHome_Commands_ClearLifeGrid_LargeImages_RESID    BITMAP    "resources\\clear.bmp" /* LargeImages cmdHome_Commands_ClearLifeGrid_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    Group_Home_Ruleset_LabelTitle_RESID L"Ruleset" /* LabelTitle Group_Home_Ruleset_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_RandomNumberFunction_LabelTitle_RESID L"Random no. fn." /* LabelTitle cmdHome_Ruleset_RandomNumberFunction_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_RandomNumberFunction_Keytip_RESID L"F" /* Keytip cmdHome_Ruleset_RandomNumberFunction_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_RandomNumberFunction_TooltipTitle_RESID L"Random number function" /* TooltipTitle cmdHome_Ruleset_RandomNumberFunction_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_RandomNumberFunction_TooltipDescription_RESID L"Selects either the fast 'Ran' or the cryptographically secure 'rand_s' function for the generation of random numbers" /* TooltipDescription cmdHome_Ruleset_RandomNumberFunction_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_PeriodicBoundaryConditions_LabelTitle_RESID L"Periodic boundary conditions" /* LabelTitle cmdHome_Ruleset_PeriodicBoundaryConditions_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_PeriodicBoundaryConditions_Keytip_RESID L"S" /* Keytip cmdHome_Ruleset_PeriodicBoundaryConditions_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_PeriodicBoundaryConditions_TooltipTitle_RESID L"Periodic boundary conditions" /* TooltipTitle cmdHome_Ruleset_PeriodicBoundaryConditions_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_Ruleset_PeriodicBoundaryConditions_TooltipDescription_RESID L"Surface topology: either flat or toroidal" /* TooltipDescription cmdHome_Ruleset_PeriodicBoundaryConditions_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Group_Home_EntropyGrid_LabelTitle_RESID L"Entropy Grid" /* LabelTitle Group_Home_EntropyGrid_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialisation_LabelTitle_RESID L"Initialisation" /* LabelTitle cmdHome_EntropyGrid_Initialisation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialisation_TooltipTitle_RESID L"Initialisation" /* TooltipTitle cmdHome_EntropyGrid_Initialisation_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialisation_TooltipDescription_RESID L"Determines how the values of the entropy grid will be initialised" /* TooltipDescription cmdHome_EntropyGrid_Initialisation_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_Initialisation_SmallImages_96__RESID    BITMAP    "resources\\initialisation (16).bmp" /* SmallImages cmdHome_EntropyGrid_Initialisation_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Initialisation_SmallImages_192__RESID    BITMAP    "resources\\initialisation (32).bmp" /* SmallImages cmdHome_EntropyGrid_Initialisation_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_Initialisation_LargeImages_96__RESID    BITMAP    "resources\\initialisation (32).bmp" /* LargeImages cmdHome_EntropyGrid_Initialisation_LargeImages_96__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable1_LabelTitle_RESID L"Min" /* LabelTitle cmdHome_EntropyGrid_InitialisationVariable1_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable1_TooltipTitle_RESID L"Min" /* TooltipTitle cmdHome_EntropyGrid_InitialisationVariable1_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable1_TooltipDescription_RESID L"Min" /* TooltipDescription cmdHome_EntropyGrid_InitialisationVariable1_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_96__RESID    BITMAP    "resources\\min (16).bmp" /* SmallImages cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_192__RESID    BITMAP    "resources\\min (32).bmp" /* SmallImages cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_96__RESID    BITMAP    "resources\\min (32).bmp" /* LargeImages cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_96__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_192__RESID    BITMAP    "resources\\min (64).bmp" /* LargeImages cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable2_LabelTitle_RESID L"Max" /* LabelTitle cmdHome_EntropyGrid_InitialisationVariable2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable2_TooltipTitle_RESID L"Max" /* TooltipTitle cmdHome_EntropyGrid_InitialisationVariable2_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_InitialisationVariable2_TooltipDescription_RESID L"Max" /* TooltipDescription cmdHome_EntropyGrid_InitialisationVariable2_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_96__RESID    BITMAP    "resources\\max (16).bmp" /* SmallImages cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_192__RESID    BITMAP    "resources\\max (32).bmp" /* SmallImages cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_96__RESID    BITMAP    "resources\\max (32).bmp" /* LargeImages cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_96__RESID: (null) */
+cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_192__RESID    BITMAP    "resources\\max (64).bmp" /* LargeImages cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Mean_LabelTitle_RESID L"Mean" /* LabelTitle cmdHome_EntropyGrid_Mean_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Mean_TooltipTitle_RESID L"Mean" /* TooltipTitle cmdHome_EntropyGrid_Mean_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Mean_TooltipDescription_RESID L"Mean" /* TooltipDescription cmdHome_EntropyGrid_Mean_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_Mean_SmallImages_96__RESID    BITMAP    "resources\\mean (16).bmp" /* SmallImages cmdHome_EntropyGrid_Mean_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Mean_SmallImages_192__RESID    BITMAP    "resources\\mean (32).bmp" /* SmallImages cmdHome_EntropyGrid_Mean_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_Mean_LargeImages_96__RESID    BITMAP    "resources\\mean (32).bmp" /* LargeImages cmdHome_EntropyGrid_Mean_LargeImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Mean_LargeImages_192__RESID    BITMAP    "resources\\mean (64).bmp" /* LargeImages cmdHome_EntropyGrid_Mean_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Variance_LabelTitle_RESID L"Variance" /* LabelTitle cmdHome_EntropyGrid_Variance_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Variance_TooltipTitle_RESID L"Variance" /* TooltipTitle cmdHome_EntropyGrid_Variance_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Variance_TooltipDescription_RESID L"Variance" /* TooltipDescription cmdHome_EntropyGrid_Variance_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_Variance_SmallImages_96__RESID    BITMAP    "resources\\variance (16).bmp" /* SmallImages cmdHome_EntropyGrid_Variance_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Variance_SmallImages_192__RESID    BITMAP    "resources\\variance (32).bmp" /* SmallImages cmdHome_EntropyGrid_Variance_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_Variance_LargeImages_96__RESID    BITMAP    "resources\\variance (32).bmp" /* LargeImages cmdHome_EntropyGrid_Variance_LargeImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Variance_LargeImages_192__RESID    BITMAP    "resources\\variance (64).bmp" /* LargeImages cmdHome_EntropyGrid_Variance_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Dissipation_LabelTitle_RESID L"Dissipation" /* LabelTitle cmdHome_EntropyGrid_Dissipation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Dissipation_Keytip_RESID L"D" /* Keytip cmdHome_EntropyGrid_Dissipation_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Dissipation_TooltipTitle_RESID L"Dissipation" /* TooltipTitle cmdHome_EntropyGrid_Dissipation_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Dissipation_TooltipDescription_RESID L"Dissipation" /* TooltipDescription cmdHome_EntropyGrid_Dissipation_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_Dissipation_SmallImages_96__RESID    BITMAP    "resources\\dissipation (16).bmp" /* SmallImages cmdHome_EntropyGrid_Dissipation_SmallImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Dissipation_SmallImages_192__RESID    BITMAP    "resources\\dissipation (32).bmp" /* SmallImages cmdHome_EntropyGrid_Dissipation_SmallImages_192__RESID: (null) */
+cmdHome_EntropyGrid_Dissipation_LargeImages_96__RESID    BITMAP    "resources\\dissipation (32).bmp" /* LargeImages cmdHome_EntropyGrid_Dissipation_LargeImages_96__RESID: (null) */
+cmdHome_EntropyGrid_Dissipation_LargeImages_192__RESID    BITMAP    "resources\\dissipation (64).bmp" /* LargeImages cmdHome_EntropyGrid_Dissipation_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialise_LabelTitle_RESID L"Initialise" /* LabelTitle cmdHome_EntropyGrid_Initialise_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialise_Keytip_RESID L"E" /* Keytip cmdHome_EntropyGrid_Initialise_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialise_TooltipTitle_RESID L"Initialise" /* TooltipTitle cmdHome_EntropyGrid_Initialise_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_EntropyGrid_Initialise_TooltipDescription_RESID L"Initialises the entropy grid with the selected settings" /* TooltipDescription cmdHome_EntropyGrid_Initialise_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_EntropyGrid_Initialise_SmallImages_RESID    BITMAP    "resources\\initialise entropy (small).bmp" /* SmallImages cmdHome_EntropyGrid_Initialise_SmallImages_RESID: (null) */
+cmdHome_EntropyGrid_Initialise_LargeImages_RESID    BITMAP    "resources\\initialise entropy.bmp" /* LargeImages cmdHome_EntropyGrid_Initialise_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    Group_Home_LifeGrid_LabelTitle_RESID L"Life Grid" /* LabelTitle Group_Home_LifeGrid_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Population_LabelTitle_RESID L"Population" /* LabelTitle cmdHome_LifeGrid_Population_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Population_Keytip_RESID L"=" /* Keytip cmdHome_LifeGrid_Population_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Population_TooltipTitle_RESID L"Population" /* TooltipTitle cmdHome_LifeGrid_Population_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Population_TooltipDescription_RESID L"Initial population" /* TooltipDescription cmdHome_LifeGrid_Population_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_LifeGrid_Population_SmallImages_96__RESID    BITMAP    "resources\\population (16).bmp" /* SmallImages cmdHome_LifeGrid_Population_SmallImages_96__RESID: (null) */
+cmdHome_LifeGrid_Population_SmallImages_192__RESID    BITMAP    "resources\\population (32).bmp" /* SmallImages cmdHome_LifeGrid_Population_SmallImages_192__RESID: (null) */
+cmdHome_LifeGrid_Population_LargeImages_96__RESID    BITMAP    "resources\\population (32).bmp" /* LargeImages cmdHome_LifeGrid_Population_LargeImages_96__RESID: (null) */
+cmdHome_LifeGrid_Population_LargeImages_192__RESID    BITMAP    "resources\\population (64).bmp" /* LargeImages cmdHome_LifeGrid_Population_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Intelligence_LabelTitle_RESID L"Intelligence" /* LabelTitle cmdHome_LifeGrid_Intelligence_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Intelligence_Keytip_RESID L"I" /* Keytip cmdHome_LifeGrid_Intelligence_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Intelligence_TooltipTitle_RESID L"Intelligence" /* TooltipTitle cmdHome_LifeGrid_Intelligence_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Intelligence_TooltipDescription_RESID L"Intelligence" /* TooltipDescription cmdHome_LifeGrid_Intelligence_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Bias_LabelTitle_RESID L"Bias" /* LabelTitle cmdHome_LifeGrid_Bias_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Bias_Keytip_RESID L"B" /* Keytip cmdHome_LifeGrid_Bias_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_ReproductionRate_LabelTitle_RESID L"Reproduction rate" /* LabelTitle cmdHome_LifeGrid_ReproductionRate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_ReproductionRate_Keytip_RESID L"+" /* Keytip cmdHome_LifeGrid_ReproductionRate_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_ReproductionRate_TooltipTitle_RESID L"Reproduction rate" /* TooltipTitle cmdHome_LifeGrid_ReproductionRate_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_ReproductionRate_TooltipDescription_RESID L"Reproduction rate" /* TooltipDescription cmdHome_LifeGrid_ReproductionRate_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_LifeGrid_ReproductionRate_SmallImages_96__RESID    BITMAP    "resources\\reproduction rate (16).bmp" /* SmallImages cmdHome_LifeGrid_ReproductionRate_SmallImages_96__RESID: (null) */
+cmdHome_LifeGrid_ReproductionRate_SmallImages_192__RESID    BITMAP    "resources\\reproduction rate (32).bmp" /* SmallImages cmdHome_LifeGrid_ReproductionRate_SmallImages_192__RESID: (null) */
+cmdHome_LifeGrid_ReproductionRate_LargeImages_96__RESID    BITMAP    "resources\\reproduction rate (32).bmp" /* LargeImages cmdHome_LifeGrid_ReproductionRate_LargeImages_96__RESID: (null) */
+cmdHome_LifeGrid_ReproductionRate_LargeImages_192__RESID    BITMAP    "resources\\reproduction rate (64).bmp" /* LargeImages cmdHome_LifeGrid_ReproductionRate_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_DeathRate_LabelTitle_RESID L"Death rate" /* LabelTitle cmdHome_LifeGrid_DeathRate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_DeathRate_Keytip_RESID L"-" /* Keytip cmdHome_LifeGrid_DeathRate_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_DeathRate_TooltipTitle_RESID L"Death rate" /* TooltipTitle cmdHome_LifeGrid_DeathRate_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_DeathRate_TooltipDescription_RESID L"Death rate" /* TooltipDescription cmdHome_LifeGrid_DeathRate_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_LifeGrid_DeathRate_SmallImages_96__RESID    BITMAP    "resources\\death rate (16).bmp" /* SmallImages cmdHome_LifeGrid_DeathRate_SmallImages_96__RESID: (null) */
+cmdHome_LifeGrid_DeathRate_SmallImages_192__RESID    BITMAP    "resources\\death rate (32).bmp" /* SmallImages cmdHome_LifeGrid_DeathRate_SmallImages_192__RESID: (null) */
+cmdHome_LifeGrid_DeathRate_LargeImages_96__RESID    BITMAP    "resources\\death rate (32).bmp" /* LargeImages cmdHome_LifeGrid_DeathRate_LargeImages_96__RESID: (null) */
+cmdHome_LifeGrid_DeathRate_LargeImages_192__RESID    BITMAP    "resources\\death rate (64).bmp" /* LargeImages cmdHome_LifeGrid_DeathRate_LargeImages_192__RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Initialise_LabelTitle_RESID L"Initialise" /* LabelTitle cmdHome_LifeGrid_Initialise_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Initialise_Keytip_RESID L"L" /* Keytip cmdHome_LifeGrid_Initialise_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Initialise_TooltipTitle_RESID L"Initialise" /* TooltipTitle cmdHome_LifeGrid_Initialise_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdHome_LifeGrid_Initialise_TooltipDescription_RESID L"Initialises the life grid with the selected settings" /* TooltipDescription cmdHome_LifeGrid_Initialise_TooltipDescription_RESID: (null) */
+END
+
+cmdHome_LifeGrid_Initialise_SmallImages_RESID    BITMAP    "resources\\initialise life (small).bmp" /* SmallImages cmdHome_LifeGrid_Initialise_SmallImages_RESID: (null) */
+cmdHome_LifeGrid_Initialise_LargeImages_RESID    BITMAP    "resources\\initialise life.bmp" /* LargeImages cmdHome_LifeGrid_Initialise_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdContextualTabGroup_Paint_LabelTitle_RESID L" " /* LabelTitle cmdContextualTabGroup_Paint_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Tab_Paint_LabelTitle_RESID L"Paint" /* LabelTitle Tab_Paint_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Tab_Paint_Keytip_RESID L"P" /* Keytip Tab_Paint_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    Group_Paint_Options_LabelTitle_RESID L"Options" /* LabelTitle Group_Paint_Options_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaintEntropy_LabelTitle_RESID L"Entropy" /* LabelTitle cmdPaintEntropy_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaintLife_LabelTitle_RESID L"Life" /* LabelTitle cmdPaintLife_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaint_Options_Layer_LabelTitle_RESID L"Layer" /* LabelTitle cmdPaint_Options_Layer_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaint_Options_Layer_Keytip_RESID L"L" /* Keytip cmdPaint_Options_Layer_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaint_Options_Layer_TooltipTitle_RESID L"Layer" /* TooltipTitle cmdPaint_Options_Layer_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPaint_Options_Layer_TooltipDescription_RESID L"Layer to paint on" /* TooltipDescription cmdPaint_Options_Layer_TooltipDescription_RESID: (null) */
+END
+
+cmdPaint_Options_Layer_LargeImages_RESID    BITMAP    "resources\\layer.bmp" /* LargeImages cmdPaint_Options_Layer_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    InternalCmd2_LabelTitle_RESID L"Label:InternalCmd2" /* LabelTitle InternalCmd2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    InternalCmd4_LabelTitle_RESID L"Label:InternalCmd4" /* LabelTitle InternalCmd4_LabelTitle_RESID: (null) */
+END
+
+APPLICATION_RIBBON    UIFILE    "ribbonmarkup.bml"
