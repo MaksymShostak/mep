@@ -41,22 +41,18 @@ public:
     STDMETHOD(QueryInterface)(REFIID iid, void **ppv);
 
 private:
-	IUIImage *_IUIImageRunLarge;
-	IUIImage *_IUIImageRunSmall;
-	IUIImage *_IUIImageStopLarge;
-	IUIImage *_IUIImageStopSmall;
-	IUIImage *_IUIImageMinLarge;
-	IUIImage *_IUIImageMinSmall;
-	IUIImage *_IUIImageMaxLarge;
-	IUIImage *_IUIImageMaxSmall;
-	IUIImage *_IUIImageMeanLarge;
-	IUIImage *_IUIImageMeanSmall;
-	IUIImage *_IUIImageVarianceLarge;
-	IUIImage *_IUIImageVarianceSmall;
+	IUIImage *_IUIImageRunLarge = nullptr;
+	IUIImage *_IUIImageRunSmall = nullptr;
+	IUIImage *_IUIImageStopLarge = nullptr;
+	IUIImage *_IUIImageStopSmall = nullptr;
+	IUIImage *_IUIImageMinLarge = nullptr;
+	IUIImage *_IUIImageMinSmall = nullptr;
+	IUIImage *_IUIImageMaxLarge = nullptr;
+	IUIImage *_IUIImageMaxSmall = nullptr;
+	IUIImage *_IUIImageMeanLarge = nullptr;
+	IUIImage *_IUIImageMeanSmall = nullptr;
+	IUIImage *_IUIImageVarianceLarge = nullptr;
+	IUIImage *_IUIImageVarianceSmall = nullptr;
 
-    CRibbonHandler() :
-		m_cRef(1)
-    {}
-
-    LONG m_cRef;
+    LONG m_cRef = 1L;
 };

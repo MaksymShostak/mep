@@ -564,21 +564,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageStopLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_Commands_Stop_LargeImages_96__RESID), &_IUIImageStopLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCEW(cmdHome_Commands_Stop_LargeImages_96__RESID), &_IUIImageStopLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageStopLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else
 				{
 					if (!_IUIImageRunLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_Commands_Run_LargeImages_96__RESID), &_IUIImageRunLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCEW(cmdHome_Commands_Run_LargeImages_96__RESID), &_IUIImageRunLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageRunLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_SmallImage)
@@ -587,21 +589,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageStopSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_Commands_Stop_SmallImages_96__RESID), &_IUIImageStopSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCEW(cmdHome_Commands_Stop_SmallImages_96__RESID), &_IUIImageStopSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageStopSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else
 				{
 					if (!_IUIImageRunSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_Commands_Run_SmallImages_96__RESID), &_IUIImageRunSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCEW(cmdHome_Commands_Run_SmallImages_96__RESID), &_IUIImageRunSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageRunSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 		}
@@ -875,21 +879,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageMinLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_96__RESID), &_IUIImageMinLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable1_LargeImages_96__RESID), &_IUIImageMinLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMinLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					if (!_IUIImageMeanLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Mean_LargeImages_96__RESID), &_IUIImageMeanLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Mean_LargeImages_96__RESID), &_IUIImageMeanLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMeanLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_SmallImage)
@@ -898,21 +904,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageMinSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_96__RESID), &_IUIImageMinSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable1_SmallImages_96__RESID), &_IUIImageMinSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMinSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					if (!_IUIImageMeanSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Mean_SmallImages_96__RESID), &_IUIImageMeanSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Mean_SmallImages_96__RESID), &_IUIImageMeanSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMeanSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 		}
@@ -1030,21 +1038,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageMaxLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_96__RESID), &_IUIImageMaxLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable2_LargeImages_96__RESID), &_IUIImageMaxLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMaxLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					if (!_IUIImageVarianceLarge)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Variance_LargeImages_96__RESID), &_IUIImageVarianceLarge);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Variance_LargeImages_96__RESID), &_IUIImageVarianceLarge);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageVarianceLarge, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_SmallImage)
@@ -1053,21 +1063,23 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				{
 					if (!_IUIImageMaxSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_96__RESID), &_IUIImageMaxSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_InitialisationVariable2_SmallImages_96__RESID), &_IUIImageMaxSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageMaxSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					if (!_IUIImageVarianceSmall)
 					{
-						CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Variance_SmallImages_96__RESID), &_IUIImageVarianceSmall);
+						hr = CreateUIImageFromBitmapResource(MAKEINTRESOURCE(cmdHome_EntropyGrid_Variance_SmallImages_96__RESID), &_IUIImageVarianceSmall);
+						if (FAILED(hr)) { return hr; }
 					}
 
 					hr = UIInitPropertyFromImage(key, _IUIImageVarianceSmall, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 		}

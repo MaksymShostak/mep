@@ -1806,22 +1806,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				PROPVARIANT pVar;
 				PropVariantInit(&pVar);
-				BOOL RunEnabled = FALSE;
 
-				g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_Run, UI_PKEY_Enabled, &pVar);
+				HRESULT hr = g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_Run, UI_PKEY_Enabled, &pVar);
 
-				HRESULT hr = PropVariantToBoolean(pVar, &RunEnabled);
-
-				if (RunEnabled)
+				if (SUCCEEDED(hr))
 				{
-					g_Variables.Running = !g_Variables.Running;
+					BOOL RunEnabled = FALSE;
 
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_ALLPROPERTIES, NULL);
+					hr = PropVariantToBoolean(pVar, &RunEnabled);
 
-					/*g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_BooleanValue);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_Label);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_LargeImage);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_SmallImage);*/
+					if (SUCCEEDED(hr))
+					{
+						if (RunEnabled)
+						{
+							g_Variables.Running = !g_Variables.Running;
+
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_ALLPROPERTIES, NULL);
+
+							/*g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_BooleanValue);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_Label);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_LargeImage);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_SmallImage);*/
+						}
+					}
 				}
 			}
 			break;
@@ -1830,16 +1837,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				PROPVARIANT pVar;
 				PropVariantInit(&pVar);
-				BOOL NextStepEnabled = FALSE;
 
-				g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_NextStep, UI_PKEY_Enabled, &pVar);
+				HRESULT hr = g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_NextStep, UI_PKEY_Enabled, &pVar);
 
-				HRESULT hr = PropVariantToBoolean(pVar, &NextStepEnabled);
-
-				if (NextStepEnabled)
+				if (SUCCEEDED(hr))
 				{
-					g_Variables.Running = true;
-					g_Variables.NumberOfSteps = 1;
+					BOOL NextStepEnabled = FALSE;
+
+					hr = PropVariantToBoolean(pVar, &NextStepEnabled);
+
+					if (SUCCEEDED(hr))
+					{
+						if (NextStepEnabled)
+						{
+							g_Variables.Running = true;
+							g_Variables.NumberOfSteps = 1;
+						}
+					}
 				}
 			}
 			break;
@@ -1848,55 +1862,62 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				PROPVARIANT pVar;
 				PropVariantInit(&pVar);
-				BOOL ClearEnabled = FALSE;
 
-				g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_Clear, UI_PKEY_Enabled, &pVar);
+				HRESULT hr = g_pRibbonFramework->GetUICommandProperty(cmdHome_Commands_Clear, UI_PKEY_Enabled, &pVar);
 
-				HRESULT hr = PropVariantToBoolean(pVar, &ClearEnabled);
-
-				if (ClearEnabled)
+				if (SUCCEEDED(hr))
 				{
-					if (g_Variables.Generation != 0U)
-					{
-						MessageBeep(MB_ICONQUESTION);
+					BOOL ClearEnabled = FALSE;
 
-						if (IDNO == MessageBox(hWnd, L"Clear all existing grids?", L"Clear", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON2 | MB_SETFOREGROUND | MB_TASKMODAL))
+					hr = PropVariantToBoolean(pVar, &ClearEnabled);
+
+					if (SUCCEEDED(hr))
+					{
+						if (ClearEnabled)
 						{
-							break;
+							if (g_Variables.Generation != 0U)
+							{
+								MessageBeep(MB_ICONQUESTION);
+
+								if (IDNO == MessageBox(hWnd, L"Clear all existing grids?", L"Clear", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON2 | MB_SETFOREGROUND | MB_TASKMODAL))
+								{
+									break;
+								}
+							}
+
+							g_pTaskbarList->SetProgressState(hWnd, TBPF_INDETERMINATE);
+
+							Concurrency::parallel_for(0, (int)g_Variables.Height, [&](UINT i)
+							{
+								for (UINT j = 0U; j < g_Variables.Width; j++)
+								{
+									g_Variables.EntropyCurrent[i][j] = 0U;
+								}
+							});
+
+							g_Variables.EcosystemCurrent.clear();
+
+							g_Variables.NewRun = true;
+							g_Variables.Generation = 0;
+							g_Variables.FreeEnergyInitial = 0;
+
+							g_Variables.Redraw = true;
+							g_Variables.Population = 0;
+							g_Variables.ThermodynamicEntropy = 0;
+							UpdateStatusBar();
+
+							g_Variables.EntropyInitialised = false;
+							g_Variables.LifeInitialised = false;
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_NextStep, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Clear, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearEntropyGrid, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearLifeGrid, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+							g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearSplitButton, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
+
+							g_pTaskbarList->SetProgressState(hWnd, TBPF_NOPROGRESS);
 						}
 					}
-
-					g_pTaskbarList->SetProgressState(hWnd, TBPF_INDETERMINATE);
-
-					Concurrency::parallel_for(0, (int)g_Variables.Height, [&](UINT i)
-					{
-						for (UINT j = 0U; j < g_Variables.Width; j++)
-						{
-							g_Variables.EntropyCurrent[i][j] = 0U;
-						}
-					});
-
-					g_Variables.EcosystemCurrent.clear();
-
-					g_Variables.NewRun = true;
-					g_Variables.Generation = 0;
-					g_Variables.FreeEnergyInitial = 0;
-
-					g_Variables.Redraw = true;
-					g_Variables.Population = 0;
-					g_Variables.ThermodynamicEntropy = 0;
-					UpdateStatusBar();
-
-					g_Variables.EntropyInitialised = false;
-					g_Variables.LifeInitialised = false;
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Run, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_NextStep, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_Clear, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearEntropyGrid, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearLifeGrid, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-					g_pRibbonFramework->InvalidateUICommand(cmdHome_Commands_ClearSplitButton, UI_INVALIDATIONS_STATE, &UI_PKEY_Enabled);
-
-					g_pTaskbarList->SetProgressState(hWnd, TBPF_NOPROGRESS);
 				}
 			}
 			break;
@@ -1905,7 +1926,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				if (g_Variables.Generation != 0)
 				{
-					MessageBeep(MB_ICONQUESTION);
+					(void)MessageBeep(MB_ICONQUESTION);
 
 					if (IDNO == MessageBox(hWnd, L"Clear entropy grid?", L"Clear", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON2 | MB_SETFOREGROUND | MB_TASKMODAL))
 					{
