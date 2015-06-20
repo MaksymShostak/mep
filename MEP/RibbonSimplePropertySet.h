@@ -13,13 +13,11 @@
 // The implementation of IUISimplePropertySet. This handles all of the properties used for the 
 // ItemsSource and Categories PKEYs and provides functions to set only the properties required 
 // for each type of gallery contents.
-class CRibbonSimplePropertySet
-    : public IUISimplePropertySet
+class CRibbonSimplePropertySet : public IUISimplePropertySet
 {
 public:
 
     static HRESULT CreateInstance(__deref_out CRibbonSimplePropertySet **ppPropertySet);
-
 
     void InitializeCommandProperties(int categoryId, int commandId, UI_COMMANDTYPE commandType);
 
@@ -30,32 +28,28 @@ public:
     STDMETHOD(GetValue)(__in REFPROPERTYKEY key, __out PROPVARIANT *ppropvar);
 
     STDMETHOD_(ULONG, AddRef)();
+
     STDMETHOD_(ULONG, Release)();
+
     STDMETHOD(QueryInterface)(REFIID iid, void **ppv);
+
 private:
-    CRibbonSimplePropertySet()
-        : m_pimgItem(NULL), 
-        m_categoryId(UI_COLLECTION_INVALIDINDEX),
-        m_commandId(-1),
-        m_commandType(UI_COMMANDTYPE_UNKNOWN),
-        m_cRef(1)
-    {
-        m_wszLabel[0] = L'\0';
-    }
 
     ~CRibbonSimplePropertySet()
     {
-        if (m_pimgItem != NULL)
-        {
-            m_pimgItem->Release();
-        }
+		SafeRelease(&m_pimgItem);
     }
 
-    WCHAR m_wszLabel[MAX_RESOURCE_LENGTH]; // Used for items and categories.
-    int m_categoryId; // Used for items, categories, and commands.
-    IUIImage* m_pimgItem; // Used for items only.
-    int m_commandId; // Used for commands only.
-    UI_COMMANDTYPE m_commandType; // Used for commands only.
+	// Used for items and categories
+	WCHAR m_wszLabel[MAX_RESOURCE_LENGTH];
+	// Used for items, categories, and commands
+    int m_categoryId = UI_COLLECTION_INVALIDINDEX;
+	// Used for items only
+    IUIImage* m_pimgItem = nullptr;
+	// Used for commands only
+    int m_commandId = -1;
+	// Used for commands only
+    UI_COMMANDTYPE m_commandType = UI_COMMANDTYPE_UNKNOWN;
 
-    LONG m_cRef;
+    LONG m_cRef = 1L;
 };

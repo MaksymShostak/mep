@@ -30,27 +30,26 @@ bool InitializeRibbonFramework(HWND hWindowFrame)
 
     // Next, we create the application object (IUIApplication) and call the framework Initialize method, 
     // passing the application object and the host HWND that the Ribbon will attach itself to.
-    CRibbonApplication *pRibbonApplication = nullptr;
+    Microsoft::WRL::ComPtr<CRibbonApplication> pRibbonApplication;
+
     hr = CRibbonApplication::CreateInstance(&pRibbonApplication, hWindowFrame);
     if (FAILED(hr))
     {
         return false;
     }
 
-    hr = g_pRibbonFramework->Initialize(hWindowFrame, pRibbonApplication);
+    hr = g_pRibbonFramework->Initialize(hWindowFrame, pRibbonApplication.Get());
     if (FAILED(hr))
     {
-        pRibbonApplication->Release();
         return false;
     }
 
     // Finally, we load the binary markup.  This will initiate callbacks to the IUIApplication object 
     // that was provided to the framework earlier, allowing command handlers to be bound to individual
     // commands.
-    hr = g_pRibbonFramework->LoadUI(GetModuleHandle(NULL), L"APPLICATION_RIBBON");
+    hr = g_pRibbonFramework->LoadUI(GetModuleHandleW(nullptr), L"APPLICATION_RIBBON");
     if (FAILED(hr))
     {
-        pRibbonApplication->Release();
         return false;
     }
 
@@ -59,12 +58,9 @@ bool InitializeRibbonFramework(HWND hWindowFrame)
 		hr = CoCreateInstance(CLSID_UIRibbonImageFromBitmapFactory, NULL, CLSCTX_ALL, IID_PPV_ARGS(&g_pifbFactory));
 		if (FAILED(hr))
 		{
-			pRibbonApplication->Release();
 			return false;
 		}
 	}
-
-    pRibbonApplication->Release();
 
     return true;
 }
@@ -81,7 +77,7 @@ void DestroyRibbonFramework()
     {
         g_pRibbonFramework->Destroy();
         g_pRibbonFramework->Release();
-        g_pRibbonFramework = NULL;
+        g_pRibbonFramework = nullptr;
     }
 }
 
@@ -94,10 +90,12 @@ void DestroyRibbonFramework()
 UINT GetRibbonHeight()
 {
     UINT ribbonHeight = 0U;
+
     if (g_pRibbonFramework)
     {
-        IUIRibbon* pRibbon = nullptr;    
-        HRESULT hr = g_pRibbonFramework->GetView(0, IID_PPV_ARGS(&pRibbon));
+        Microsoft::WRL::ComPtr<IUIRibbon> pRibbon;    
+
+        HRESULT hr = g_pRibbonFramework->GetView(0U, IID_PPV_ARGS(&pRibbon));
 
 		if (SUCCEEDED(hr))
 		{
@@ -105,10 +103,10 @@ UINT GetRibbonHeight()
 			
 			if (FAILED(hr))
 			{
-				ribbonHeight = 0;
+				ribbonHeight = 0U;
 			}
-			pRibbon->Release();
 		}
     }
+
     return ribbonHeight;
 }

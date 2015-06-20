@@ -18,11 +18,11 @@
 //    This is the command handler for the buttons in the Ribbon
 //    IUICommandHandler should be returned by the application during command creation.
 //
-class CRibbonHandler
-    : public IUICommandHandler // Command handlers must implement IUICommandHandler.
+class CRibbonHandler : public IUICommandHandler // Command handlers must implement IUICommandHandler.
 {
 public:
 	HRESULT CreateUIImageFromBitmapResource(LPCTSTR pszResource,__out IUIImage **ppimg);
+
     STDMETHOD(Execute)(UINT nCmdID,
                        UI_EXECUTIONVERB verb, 
                        __in_opt const PROPERTYKEY* key,
@@ -37,7 +37,9 @@ public:
     static HRESULT CreateInstance(__deref_out CRibbonHandler **ppHandler);
 
     STDMETHOD_(ULONG, AddRef)();
+
     STDMETHOD_(ULONG, Release)();
+
     STDMETHOD(QueryInterface)(REFIID iid, void **ppv);
 
 private:

@@ -21,7 +21,6 @@
 #include "targetver.h"
 
 #define STRICT
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 //#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 //#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
 // Windows Header Files:
@@ -30,18 +29,15 @@
 
 // C RunTime Header Files
 #include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
+#include <tchar.h> // _tcsrchr, _tcsicmp
 
 // Additional headers
-#include <atlbase.h>
-#include <commctrl.h>
-#include <list> //std::list
-#include <strsafe.h> //StringCchCopy, StringCchPrintf
-#include <shellapi.h>
-#include <ppl.h> //Concurrency::Parallel_for
-#include <iostream>
+#include <commctrl.h> // TASKDIALOGCONFIG
+#include <list> // std::list
+#include <strsafe.h> // StringCchCopy, StringCchPrintf
+#include <shellapi.h> // HDROP, DragQueryFile
+#include <ppl.h> // Concurrency::Parallel_for
+#include <wrl\client.h> // Microsoft::WRL::ComPtr
 
 enum INITIALISATION
 {
@@ -127,3 +123,14 @@ struct VARIABLES
 	std::list<LIFEPROPERTIES> EcosystemCurrent;
 	POINT					TranslateVector;
 };
+
+template<class Interface>
+inline void SafeRelease(Interface **ppInterfaceToRelease)
+{
+	if (*ppInterfaceToRelease != NULL)
+	{
+		(*ppInterfaceToRelease)->Release();
+
+		(*ppInterfaceToRelease) = NULL;
+	}
+}

@@ -33,10 +33,10 @@ private:
 
 
 	// Private member variables
-	LONG	m_lRefCount;
-	HWND	m_hWnd;
-	bool    m_fAllowDrop;
+	LONG m_lRefCount = 1L;
+	HWND m_hWnd = nullptr;
+	bool m_fAllowDrop = false;
 
-	IDataObject *m_pDataObject;
+	IDataObject* m_pDataObject = nullptr;
 
 };

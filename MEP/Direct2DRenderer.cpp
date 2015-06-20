@@ -41,7 +41,7 @@ inline void Direct2DRenderer::CreateBitmapData()
 		}
 	};*/
 
-	 for (std::list <LIFEPROPERTIES>::iterator Iter = g_Variables.EcosystemCurrent.begin(); Iter != g_Variables.EcosystemCurrent.end(); Iter++)
+	 for (auto Iter = g_Variables.EcosystemCurrent.begin(); Iter != g_Variables.EcosystemCurrent.end(); ++Iter)
 	 {
 		 UINT index = (Iter->x * (g_Variables.BytesPerPixel)) + (Iter->y * g_Variables.Stride);
 
@@ -59,28 +59,15 @@ inline void Direct2DRenderer::CreateBitmapData()
 }
 
 //
-// Initialize members.
-//
-Direct2DRenderer::Direct2DRenderer() :
-    m_hwnd(NULL),
-    m_pD2DFactory(NULL),
-    m_pWICFactory(NULL),
-    m_pRenderTarget(NULL),
-	m_pBitmapEntropy(NULL),
-	m_pBitmapLife(NULL)
-{
-}
-
-//
 // Release resources.
 //
 Direct2DRenderer::~Direct2DRenderer()
 {
 	//SafeRelease(&m_pWICFactory); Already destroyed by CoUninitialize() call
-    SafeRelease(&m_pD2DFactory);
-    SafeRelease(&m_pRenderTarget);
-    SafeRelease(&m_pBitmapEntropy);
-	SafeRelease(&m_pBitmapLife);
+    SafeRelease(m_pD2DFactory.GetAddressOf());
+    SafeRelease(m_pRenderTarget.GetAddressOf());
+    SafeRelease(m_pBitmapEntropy.GetAddressOf());
+	SafeRelease(m_pBitmapLife.GetAddressOf());
 }
 
 //
@@ -93,21 +80,20 @@ Direct2DRenderer::~Direct2DRenderer()
 //
 HRESULT Direct2DRenderer::CreateDeviceIndependentResources()
 {
-    HRESULT hr;
+    HRESULT hr = E_FAIL;
 
-    // Create a Direct2D factory.
-    hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_pD2DFactory);
-    if (SUCCEEDED(hr))
-    {
-        // Create WIC factory.
-        hr = CoCreateInstance(
-            CLSID_WICImagingFactory,
-            NULL,
-            CLSCTX_INPROC_SERVER,
-            IID_IWICImagingFactory,
-            reinterpret_cast<void **>(&m_pWICFactory)
-            );
-    }
+    // Create a Direct2D factory
+    hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, m_pD2DFactory.GetAddressOf());
+	if (FAILED(hr)) { return hr; }
+
+    // Create a WIC factory
+    hr = CoCreateInstance(
+        CLSID_WICImagingFactory,
+        NULL,
+        CLSCTX_INPROC_SERVER,
+        IID_IWICImagingFactory,
+        reinterpret_cast<void **>(m_pWICFactory.GetAddressOf())
+        );
 
     return hr;
 }
@@ -126,8 +112,10 @@ HRESULT Direct2DRenderer::CreateDeviceResources()
     {
 		//MessageBox(NULL, L"CreateDeviceResources", L"Info", MB_ICONINFORMATION | MB_OK);
 
-        RECT rc;
-        GetClientRect(m_hwnd, &rc);
+		RECT rc = { 0 };
+
+		hr = GetClientRect(m_hwnd, &rc) ? S_OK : HRESULT_FROM_WIN32(GetLastError());
+		if (FAILED(hr)) { return hr; }
 
         D2D1_SIZE_U size = D2D1::SizeU(
             rc.right - rc.left,
@@ -140,6 +128,7 @@ HRESULT Direct2DRenderer::CreateDeviceResources()
             D2D1::HwndRenderTargetProperties(m_hwnd, size),
             &m_pRenderTarget
             );
+		if (FAILED(hr)) { return hr; }
 
 		m_pD2DFactory->GetDesktopDpi(&m_dpiX, &m_dpiY);
 
@@ -150,6 +139,7 @@ HRESULT Direct2DRenderer::CreateDeviceResources()
 			D2D1::BitmapProperties(D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED), m_dpiX, m_dpiY),
 			&m_pBitmapEntropy
 			);
+		if (FAILED(hr)) { return hr; }
 
 		hr = m_pRenderTarget->CreateBitmap(
 			D2D1::SizeU(g_Variables.Width, g_Variables.Height),
@@ -169,9 +159,9 @@ HRESULT Direct2DRenderer::CreateDeviceResources()
 //
 void Direct2DRenderer::DiscardDeviceResources()
 {
-    SafeRelease(&m_pRenderTarget);
-    SafeRelease(&m_pBitmapEntropy);
-	SafeRelease(&m_pBitmapLife);
+    SafeRelease(m_pRenderTarget.GetAddressOf());
+    SafeRelease(m_pBitmapEntropy.GetAddressOf());
+	SafeRelease(m_pBitmapLife.GetAddressOf());
 }
 
 //
@@ -228,12 +218,12 @@ HRESULT Direct2DRenderer::OnRender()
 		D2D1_SIZE_F size = m_pBitmapEntropy->GetSize();
 
         m_pRenderTarget->DrawBitmap(
-            m_pBitmapEntropy,
+            m_pBitmapEntropy.Get(),
 			D2D1::RectF((FLOAT)g_Variables.TranslateVector.x, (FLOAT)g_Variables.TranslateVector.y, (m_dpiX/96.0F)*size.width + g_Variables.TranslateVector.x, (m_dpiY/96.0F)*size.height + g_Variables.TranslateVector.y)
             );
 
 		m_pRenderTarget->DrawBitmap(
-            m_pBitmapLife,
+            m_pBitmapLife.Get(),
 			D2D1::RectF((FLOAT)g_Variables.TranslateVector.x, (FLOAT)g_Variables.TranslateVector.y, (m_dpiX/96.0F)*size.width + g_Variables.TranslateVector.x, (m_dpiY/96.0F)*size.height + g_Variables.TranslateVector.y)
             );
 
@@ -284,13 +274,13 @@ void Direct2DRenderer::OnResize(UINT width, UINT height)
         // Note: This method can fail, but it's okay to ignore the
         // error here -- it will be repeated on the next call to
         // EndDraw.
-		m_pRenderTarget->Resize(D2D1::SizeU(width, height));
+		(void)m_pRenderTarget->Resize(D2D1::SizeU(width, height));
     }
 }
 
 HRESULT Direct2DRenderer::CreateFileFromLayer(PCWSTR uri, LAYER layer, GUID guidContainerFormat)
 {
-	return CreateFileFromLayer(m_pWICFactory, uri, g_Variables.Width, g_Variables.Height, layer, guidContainerFormat);
+	return CreateFileFromLayer(m_pWICFactory.Get(), uri, g_Variables.Width, g_Variables.Height, layer, guidContainerFormat);
 };
 
 HRESULT Direct2DRenderer::CreateFileFromLayer(
@@ -302,102 +292,99 @@ HRESULT Direct2DRenderer::CreateFileFromLayer(
 	GUID guidContainerFormat
     )
 {
-    HRESULT hr = S_OK;
+	HRESULT hr = S_OK;
 
 	//Variables used for encoding.
-IWICStream *piFileStream = NULL;
-IWICBitmapEncoder *piEncoder = NULL;
+	Microsoft::WRL::ComPtr<IWICStream> piFileStream;
 
-WICPixelFormatGUID pixelFormat = GUID_WICPixelFormat32bppBGRA;
+	// Create a file stream.
+	if (SUCCEEDED(hr))
+	{
+		hr = pIWICFactory->CreateStream(&piFileStream);
+	}
 
-// Create a file stream.
-if (SUCCEEDED(hr))
-{
-    hr = pIWICFactory->CreateStream(&piFileStream);
-}
+	// Initialize our new file stream.
+	if (SUCCEEDED(hr))
+	{
+		hr = piFileStream->InitializeFromFilename(uri, GENERIC_WRITE);
+	}
 
-// Initialize our new file stream.
-if (SUCCEEDED(hr))
-{
-    hr = piFileStream->InitializeFromFilename(uri, GENERIC_WRITE);
-}
+	Microsoft::WRL::ComPtr<IWICBitmapEncoder> piEncoder;
 
-// Create the encoder.
-if (SUCCEEDED(hr))
-{
-    hr = pIWICFactory->CreateEncoder(guidContainerFormat, NULL, &piEncoder);
-}
-// Initialize the encoder
-if (SUCCEEDED(hr))
-{
-    hr = piEncoder->Initialize(piFileStream, WICBitmapEncoderNoCache);
-}
+	// Create the encoder.
+	if (SUCCEEDED(hr))
+	{
+		hr = pIWICFactory->CreateEncoder(guidContainerFormat, NULL, &piEncoder);
+	}
+	// Initialize the encoder
+	if (SUCCEEDED(hr))
+	{
+		hr = piEncoder->Initialize(piFileStream.Get(), WICBitmapEncoderNoCache);
+	}
 
-IWICBitmapFrameEncode *piFrameEncode = NULL;
+	Microsoft::WRL::ComPtr<IWICBitmapFrameEncode> piFrameEncode;
 
-hr = piEncoder->CreateNewFrame(&piFrameEncode, NULL);
+	hr = piEncoder->CreateNewFrame(&piFrameEncode, NULL);
 
-if (SUCCEEDED(hr))
-    {
-        hr = piFrameEncode->Initialize(NULL);
-    }
-if (SUCCEEDED(hr))
-    {
-        hr = piFrameEncode->SetSize(destinationWidth, destinationHeight);
-    }
-if (SUCCEEDED(hr))
-    {
-        hr = piFrameEncode->SetResolution(96.0F, 96.0F);
-    }
-if (SUCCEEDED(hr))
-    {
-        hr = piFrameEncode->SetPixelFormat(&pixelFormat);
-    }
-if (SUCCEEDED(hr))
-    {
+	if (SUCCEEDED(hr))
+	{
+		hr = piFrameEncode->Initialize(nullptr);
+	}
+	if (SUCCEEDED(hr))
+	{
+		hr = piFrameEncode->SetSize(destinationWidth, destinationHeight);
+	}
+	if (SUCCEEDED(hr))
+	{
+		hr = piFrameEncode->SetResolution(96.0F, 96.0F);
+	}
+
+	WICPixelFormatGUID pixelFormat = GUID_WICPixelFormat32bppBGRA;
+
+	if (SUCCEEDED(hr))
+	{
+		hr = piFrameEncode->SetPixelFormat(&pixelFormat);
+	}
+	if (SUCCEEDED(hr))
+	{
 		if (layer == LAYER_ENTROPY)
 		{
 			hr = piFrameEncode->WritePixels(g_Variables.Height, g_Variables.Stride, g_Variables.Stride*g_Variables.Height, g_Variables.BitmapDataEntropy);
 
-        /*hr = piFrameEncode->WriteSource(
-            m_pWICBitmapEntropy,
-            NULL);*/
+			/*hr = piFrameEncode->WriteSource(
+				m_pWICBitmapEntropy,
+				NULL);*/
 		}
 		else if (layer == LAYER_LIFE)
 		{
 			hr = piFrameEncode->WritePixels(g_Variables.Height, g_Variables.Stride, g_Variables.Stride*g_Variables.Height, g_Variables.BitmapDataLife);
 			/*hr = piFrameEncode->WriteSource(
-            m_pWICBitmapLife,
-            NULL);*/
+			m_pWICBitmapLife,
+			NULL);*/
 		}
-    }
+	}
 
-    //Commit the frame.
-    if (SUCCEEDED(hr))
-    {
-        hr = piFrameEncode->Commit();
-    }
-if (SUCCEEDED(hr))
-{
-    piEncoder->Commit();
-}
+	//Commit the frame.
+	if (SUCCEEDED(hr))
+	{
+		hr = piFrameEncode->Commit();
+	}
+	if (SUCCEEDED(hr))
+	{
+		(void)piEncoder->Commit();
+	}
 
-if (SUCCEEDED(hr))
-{
-    piFileStream->Commit(STGC_DEFAULT);
-}
+	if (SUCCEEDED(hr))
+	{
+		(void)piFileStream->Commit(STGC_DEFAULT);
+	}
 
-
-SafeRelease(&piFileStream);
-SafeRelease(&piEncoder);
-SafeRelease(&piFrameEncode);
-
-    return hr;
+	return hr;
 }
 
 HRESULT Direct2DRenderer::CreateLayerFromFile(PCWSTR uri, LAYER layer)
 {
-	return CreateLayerFromFile(m_pWICFactory, uri, g_Variables.Width, g_Variables.Height, layer);
+	return CreateLayerFromFile(m_pWICFactory.Get(), uri, g_Variables.Width, g_Variables.Height, layer);
 };
 
 //
@@ -412,11 +399,11 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
 	LAYER layer
     )
 {
-    IWICBitmapDecoder *pDecoder = nullptr;
-    IWICBitmapFrameDecode *pSource = nullptr;
-    IWICStream *pStream = nullptr;
-    IWICFormatConverter *pConverter = nullptr;
-    IWICBitmapScaler *pScaler = nullptr;
+	Microsoft::WRL::ComPtr<IWICBitmapDecoder> pDecoder;
+	Microsoft::WRL::ComPtr<IWICBitmapFrameDecode> pSource;
+	Microsoft::WRL::ComPtr<IWICStream> pStream;
+	Microsoft::WRL::ComPtr<IWICFormatConverter> pConverter;
+	Microsoft::WRL::ComPtr<IWICBitmapScaler> pScaler;
 
     HRESULT hr = pIWICFactory->CreateDecoderFromFilename(
         uri,
@@ -429,7 +416,7 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
     if (SUCCEEDED(hr))
     {
         // Create the initial frame.
-        hr = pDecoder->GetFrame(0, &pSource);
+        hr = pDecoder->GetFrame(0U, &pSource);
     }
 
     if (SUCCEEDED(hr))
@@ -443,20 +430,21 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
     {
         // If a new width or height was specified, create an
         // IWICBitmapScaler and use it to resize the image.
-        if (destinationWidth != 0 || destinationHeight != 0)
+        if (destinationWidth != 0U || destinationHeight != 0U)
         {
-            UINT originalWidth, originalHeight;
+			UINT originalWidth = 0U;
+			UINT originalHeight = 0U;
 
             hr = pSource->GetSize(&originalWidth, &originalHeight);
 
             if (SUCCEEDED(hr))
             {
-                if (destinationWidth == 0)
+                if (destinationWidth == 0U)
                 {
                     FLOAT scalar = static_cast<FLOAT>(destinationHeight) / static_cast<FLOAT>(originalHeight);
                     destinationWidth = static_cast<UINT>(scalar * static_cast<FLOAT>(originalWidth));
                 }
-                else if (destinationHeight == 0)
+                else if (destinationHeight == 0U)
                 {
                     FLOAT scalar = static_cast<FLOAT>(destinationWidth) / static_cast<FLOAT>(originalWidth);
                     destinationHeight = static_cast<UINT>(scalar * static_cast<FLOAT>(originalHeight));
@@ -467,7 +455,7 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
                 if (SUCCEEDED(hr))
                 {
                     hr = pScaler->Initialize(
-                            pSource,
+                            pSource.Get(),
                             destinationWidth,
                             destinationHeight,
                             WICBitmapInterpolationModeCubic
@@ -477,11 +465,11 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
                 if (SUCCEEDED(hr))
                 {
                     hr = pConverter->Initialize(
-                        pScaler,
+                        pScaler.Get(),
                         GUID_WICPixelFormat32bppPBGRA,
                         WICBitmapDitherTypeNone,
                         NULL,
-                        0.f,
+                        0.0,
                         WICBitmapPaletteTypeMedianCut
                         );
                 }
@@ -490,11 +478,11 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
         else // Don't scale the image.
         {
             hr = pConverter->Initialize(
-                pSource,
+                pSource.Get(),
                 GUID_WICPixelFormat32bppPBGRA,
                 WICBitmapDitherTypeNone,
                 NULL,
-                0.f,
+                0.0,
                 WICBitmapPaletteTypeMedianCut
                 );
         }
@@ -502,7 +490,6 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
 
     if (SUCCEEDED(hr))
     {
-		
 		if (layer == LAYER_ENTROPY)
 		{
 			hr = pConverter->CopyPixels(NULL, g_Variables.Stride, g_Variables.Stride*g_Variables.Height, g_Variables.BitmapDataEntropy);
@@ -513,16 +500,13 @@ HRESULT Direct2DRenderer::CreateLayerFromFile(
 		}
     }
 
-    SafeRelease(&pDecoder);
-    SafeRelease(&pSource);
-    SafeRelease(&pStream);
-    SafeRelease(&pConverter);
-    SafeRelease(&pScaler);
-
     return hr;
 }
 
 void Direct2DRenderer::SetHwnd(HWND hWnd)
 {
-	m_hwnd = hWnd;
+	if (hWnd)
+	{
+		m_hwnd = hWnd;
+	}
 }

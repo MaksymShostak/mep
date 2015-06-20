@@ -117,7 +117,8 @@ inline bool OutputToFile()
 			OutputFileName,
 			MAX_PATH,
 			TEXT("output (%d-%02d-%02d %02d %02d %02d %03d).csv"),
-			LocalTime.wYear, LocalTime.wMonth, LocalTime.wDay, LocalTime.wHour, LocalTime.wMinute, LocalTime.wSecond, LocalTime.wMilliseconds);
+			LocalTime.wYear, LocalTime.wMonth, LocalTime.wDay, LocalTime.wHour, LocalTime.wMinute, LocalTime.wSecond, LocalTime.wMilliseconds
+			);
 		
 		if (SUCCEEDED(hr))
 		{
@@ -164,7 +165,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR /
 	int	nArgs = 0;
 	LPWSTR *lpszArgv = nullptr;
 
-	HeapSetInformation(NULL, HeapEnableTerminationOnCorruption, NULL, 0);
+	(void)HeapSetInformation(nullptr, HeapEnableTerminationOnCorruption, nullptr, 0);
 
 	lpszArgv = CommandLineToArgvW(GetCommandLineW(), &nArgs);
 
@@ -264,8 +265,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR /
     }
 
 	// Initialize global strings
-	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_MEP, szWindowClass, MAX_LOADSTRING);
+	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+	LoadStringW(hInstance, IDC_MEP, szWindowClass, MAX_LOADSTRING);
 
     // Initialize device-indpendent resources, such as the Direct2D factory.
     hr = renderer.CreateDeviceIndependentResources();
@@ -340,11 +341,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR /
 		if (g_Variables.Running)
 		{
 			LARGE_INTEGER PerformanceCounterInit;
-QueryPerformanceCounter(&PerformanceCounterInit);
+			QueryPerformanceCounter(&PerformanceCounterInit);
 
 			if (g_Variables.OutputToFile)
 			{
-				OutputToFile();
+				(void)OutputToFile();
 			}
 
 			RunSimulation();
@@ -354,11 +355,12 @@ QueryPerformanceCounter(&PerformanceCounterInit);
 			CalculateThermodynamicEntropy();
 
 			LARGE_INTEGER PerformanceCounter;
-QueryPerformanceCounter(&PerformanceCounter);
-LARGE_INTEGER PerformanceFrequency;
-QueryPerformanceFrequency(&PerformanceFrequency);
+			QueryPerformanceCounter(&PerformanceCounter);
 
-g_Variables.FPS = (1.0/(((double)PerformanceCounter.QuadPart - (double)PerformanceCounterInit.QuadPart)/(double)PerformanceFrequency.QuadPart));
+			LARGE_INTEGER PerformanceFrequency;
+			QueryPerformanceFrequency(&PerformanceFrequency);
+
+			g_Variables.FPS = (1.0/(((double)PerformanceCounter.QuadPart - (double)PerformanceCounterInit.QuadPart)/(double)PerformanceFrequency.QuadPart));
 
 			g_Variables.Redraw = true;
 
@@ -528,25 +530,25 @@ void UpdateStatusBar()
 	HRESULT hr = StringCchPrintf(wGeneration, MAX_LOADSTRING, TEXT("Generation: %d"), g_Variables.Generation);
 	if (SUCCEEDED(hr))
 	{
-		SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 1, (LPARAM) wGeneration);
+		SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 1, (LPARAM) wGeneration);
 	}
 	
 	hr = StringCchPrintf(wPopulation, MAX_LOADSTRING, L"Population: %d", g_Variables.Population);
 	if (SUCCEEDED(hr))
 	{
-		SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 2, (LPARAM) wPopulation);
+		SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 2, (LPARAM) wPopulation);
 	}
 	
 	hr = StringCchPrintf(wThermodynamicEntropy, MAX_LOADSTRING, L"Entropy: %f", g_Variables.ThermodynamicEntropy);
 	if (SUCCEEDED(hr))
 	{
-		SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 3, (LPARAM) wThermodynamicEntropy);
+		SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 3, (LPARAM) wThermodynamicEntropy);
 	}
 	
 	hr = StringCchPrintf(wFPS, MAX_LOADSTRING, L"FPS: %d", (UINT)g_Variables.FPS);
 	if (SUCCEEDED(hr))
 	{
-		SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) wFPS);
+		SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) wFPS);
 	}
 }
 
@@ -855,7 +857,7 @@ void RunSimulation()
 		g_Variables.EntropyCurrent[i][j]--;
 		g_Variables.FreeEnergy--;
 		//cs.unlock();
-		Iter++;
+		++Iter;
    };
 
 			
@@ -1022,10 +1024,10 @@ void InitialiseVariables()
 	g_Variables.Intelligence = true;
 	g_Variables.Bias = false;
 	g_Variables.PaintLayer = LAYER_LIFE;
-	g_Variables.Generation = 0u;
+	g_Variables.Generation = 0U;
 	g_Variables.InformationEntropy = 0;
-	g_Variables.FreeEnergyInitial = 0u;
-	g_Variables.FreeEnergy = 0u;
+	g_Variables.FreeEnergyInitial = 0U;
+	g_Variables.FreeEnergy = 0U;
 	g_Variables.ThermodynamicEntropy = 0;
 	g_Variables.EntropyInitialised = false;
 	g_Variables.LifeInitialised = false;
@@ -1253,8 +1255,8 @@ LRESULT CALLBACK RenderTargetWndProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 	case WM_MOUSELEAVE:
 		{
 			mouseTracked = false;
-			SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) L"");
-			//SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) L"");
+			SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) L"");
+			//SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) L"");
 		}
 		return 0;
 
@@ -1296,7 +1298,7 @@ LRESULT CALLBACK RenderTargetWndProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 					StringCchPrintf(wMouseCoordinates, MAX_LOADSTRING, TEXT("%u, %upx"), x - g_Variables.TranslateVector.x, y - g_Variables.TranslateVector.y);
 				}
 
-				SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) wMouseCoordinates);
+				SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) wMouseCoordinates);
 
 				if (g_Variables.Paint)
 				{
@@ -1346,8 +1348,8 @@ LRESULT CALLBACK RenderTargetWndProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 			}
 			else
 			{
-				SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) L"");
-				//SendMessage(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) L"");
+				SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 0, (LPARAM) L"");
+				//SendMessageW(hStatusBar, SB_SETTEXT, (WPARAM) 4, (LPARAM) L"");
 			}
 		}
 		return 0;
@@ -1449,14 +1451,15 @@ void CreateLayerFromFile(PCWSTR FileName, LAYER layer)
 	UpdateStatusBar();
 }
 
-HRESULT CommonItemDialogOpen(HWND hWnd, wchar_t *buffer)
+HRESULT CommonItemDialogOpen(HWND hWnd, wchar_t* buffer)
 {
 	// Initialize COM engine
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE); // Will return S_FALSE (1) if already initialised
  
     if (SUCCEEDED(hr))
     {
-		IFileDialog *pfd = nullptr;
+		Microsoft::WRL::ComPtr<IFileDialog> pfd;
+
 		// CoCreate the dialog object.
 		hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd));
 
@@ -1482,25 +1485,26 @@ HRESULT CommonItemDialogOpen(HWND hWnd, wchar_t *buffer)
         
 				if (SUCCEEDED(hr))
 				{
-					IShellItem *psiResult;
+					Microsoft::WRL::ComPtr<IShellItem> psiResult;
+
 					// Obtain the result of the user's interaction with the dialog.
 					hr = pfd->GetResult(&psiResult);
             
 					if (SUCCEEDED(hr))
 					{
-						LPWSTR pszFileSysPath;
+						LPWSTR pszFileSysPath = nullptr;
 
 						hr = psiResult->GetDisplayName(SIGDN_FILESYSPATH, &pszFileSysPath);
+
 						if (SUCCEEDED(hr))
 						{
 							hr = StringCchCopyW(buffer, MAX_PATH, pszFileSysPath);
+
 							CoTaskMemFree(pszFileSysPath);
 						}
-						psiResult->Release();
 					}
 				}
 			}
-			pfd->Release();
 		}
 	}
 
@@ -1522,19 +1526,22 @@ void CreateFileFromLayer(PCWSTR FileName, LAYER layer, GUID guidContainerFormat)
 	}
 }
 
-HRESULT CommonItemDialogSave(HWND hWnd, wchar_t *buffer, GUID *guidContainerFormat)
+HRESULT CommonItemDialogSave(HWND hWnd, wchar_t* buffer, GUID* guidContainerFormat)
 {
 	// Initialize COM engine
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE); // Will return S_FALSE (1) if already initialised
  
     if (SUCCEEDED(hr))
     {
-		IFileDialog *pfd = nullptr;
+		Microsoft::WRL::ComPtr<IFileDialog> pfd;
+
 		// CoCreate the dialog object.
-		hr = CoCreateInstance(CLSID_FileSaveDialog, 
-										NULL, 
-										CLSCTX_INPROC_SERVER, 
-										IID_PPV_ARGS(&pfd));
+		hr = CoCreateInstance(
+			CLSID_FileSaveDialog,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&pfd)
+			);
 
 		if (SUCCEEDED(hr))
 		{
@@ -1569,7 +1576,8 @@ HRESULT CommonItemDialogSave(HWND hWnd, wchar_t *buffer, GUID *guidContainerForm
         					if (SUCCEEDED(hr))
 							{
 								// Obtain the result of the user's interaction with the dialog.
-								IShellItem *psiResult;
+								Microsoft::WRL::ComPtr<IShellItem> psiResult;
+
 								hr = pfd->GetResult(&psiResult);
 
 								if (SUCCEEDED(hr))
@@ -1577,25 +1585,28 @@ HRESULT CommonItemDialogSave(HWND hWnd, wchar_t *buffer, GUID *guidContainerForm
 									LPWSTR pszFileSysPath;
 
 									hr = psiResult->GetDisplayName(SIGDN_FILESYSPATH, &pszFileSysPath);
+
 									if (SUCCEEDED(hr))
 									{
 										hr = StringCchCopyW(buffer, MAX_PATH, pszFileSysPath);
+
 										if (SUCCEEDED(hr))
 										{
-											UINT fileTypeIndex;
+											UINT fileTypeIndex = 0U;
 
 											hr = pfd->GetFileTypeIndex(&fileTypeIndex);
+
 											if (SUCCEEDED(hr))
 											{
-												if (fileTypeIndex == 1)
+												if (fileTypeIndex == 1U)
 												{
 													*guidContainerFormat = GUID_ContainerFormatBmp;
 												}
-												else if (fileTypeIndex == 2)
+												else if (fileTypeIndex == 2U)
 												{
 													*guidContainerFormat = GUID_ContainerFormatPng;
 												}
-												else if (fileTypeIndex == 3)
+												else if (fileTypeIndex == 3U)
 												{
 													*guidContainerFormat = GUID_ContainerFormatTiff;
 												}
@@ -1603,14 +1614,12 @@ HRESULT CommonItemDialogSave(HWND hWnd, wchar_t *buffer, GUID *guidContainerForm
 										}
 										CoTaskMemFree(pszFileSysPath);
 									}
-									psiResult->Release();
 								}
 							}
 						}
 					}
 				}
 			}
-			pfd->Release();
 		}
 	}
 	// Cleanup COM
@@ -1682,7 +1691,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 		case ID_FILE_NEW:
 			{
-				SendMessage(hWnd, WM_COMMAND, cmdHome_Commands_Clear, NULL);
+				SendMessageW(hWnd, WM_COMMAND, cmdHome_Commands_Clear, NULL);
 			}
 			break;
 		case ID_FILE_OPEN:
@@ -2228,16 +2237,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			InitCommonControls();
 
 			// Create status bar
-			hStatusBar = CreateWindowEx(0, STATUSCLASSNAME, NULL, WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP, 0, 0, 0, 0, hWnd, (HMENU)IDC_STATUSBAR, GetModuleHandle(NULL), NULL);
+			hStatusBar = CreateWindowExW(
+				0,
+				STATUSCLASSNAME,
+				nullptr,
+				WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP,
+				0,
+				0,
+				0,
+				0,
+				hWnd,
+				(HMENU)IDC_STATUSBAR,
+				GetModuleHandleW(nullptr),
+				nullptr
+				);
 
 			// Create status bar "compartments" at specified widths, last -1 means that it fills the rest of the window
 			int StatusBarWidths[] = {g_metrics.ScaleX(128), g_metrics.ScaleX(256), g_metrics.ScaleX(384), g_metrics.ScaleX(512), -1};
 
-			SendMessage(hStatusBar, SB_SETPARTS, (WPARAM)(sizeof(StatusBarWidths)/sizeof(int)), (LPARAM)StatusBarWidths);
+			SendMessageW(hStatusBar, SB_SETPARTS, (WPARAM)(sizeof(StatusBarWidths)/sizeof(int)), (LPARAM)StatusBarWidths);
 
-			HANDLE handleIconCursorLocation = LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_CURSORLOCATION), IMAGE_ICON, 16, 16, 0);
+			HANDLE handleIconCursorLocation = LoadImage(GetModuleHandleW(nullptr), MAKEINTRESOURCE(IDI_CURSORLOCATION), IMAGE_ICON, 16, 16, 0);
 
-			SendMessage(hStatusBar, SB_SETICON, (WPARAM) 0, (LPARAM) handleIconCursorLocation);
+			SendMessageW(hStatusBar, SB_SETICON, (WPARAM) 0, (LPARAM) handleIconCursorLocation);
 
 			UpdateStatusBar();
 
@@ -2270,6 +2292,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_DESTROY:
 		{
+			g_Variables.Running = false;
 			SafeRelease(&g_pTaskbarList);
 			DestroyRibbonFramework();
 			UnregisterDropWindow(hWnd, pDropTarget);
@@ -2355,7 +2378,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             UINT height = HIWORD(lParam);
 
 			// Auto-resize statusbar
-			SendMessage(hStatusBar, WM_SIZE, 0, 0);
+			SendMessageW(hStatusBar, WM_SIZE, 0, 0);
 
 			RECT rc = {0};
 			GetClientRect(hStatusBar, &rc);

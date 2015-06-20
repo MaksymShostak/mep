@@ -9,9 +9,7 @@ extern void CreateLayerFromFile(PCWSTR FileName, LAYER layer);
 //
 CDropTarget::CDropTarget(HWND hWnd)
 {
-	m_lRefCount  = 1;
-	m_hWnd       = hWnd;
-	m_fAllowDrop = false;
+	m_hWnd = hWnd;
 }
 
 //

@@ -17,25 +17,24 @@ extern VARIABLES g_Variables;
 extern HWND hWnd;
 
 HRESULT CRibbonHandler::CreateUIImageFromBitmapResource(LPCTSTR pszResource,__out IUIImage **ppimg)
+{
+	HRESULT hr = E_FAIL;
+
+	*ppimg = nullptr;
+
+	// Load the bitmap from the resource file.
+	HBITMAP hbm = static_cast<HBITMAP>(LoadImageW(GetModuleHandleW(nullptr), pszResource, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
+
+	if (hbm)
 	{
-		HRESULT hr = E_FAIL;
-		*ppimg = nullptr;
+		// Use the factory implemented by the framework to produce an IUIImage.
+		hr = g_pifbFactory->CreateImage(hbm, UI_OWNERSHIP_COPY, ppimg);
 
-		// Load the bitmap from the resource file.
-		HBITMAP hbm = (HBITMAP) LoadImage(GetModuleHandle(NULL), pszResource, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
-		if (hbm)
-		{
-			// Use the factory implemented by the framework to produce an IUIImage.
-			hr = g_pifbFactory->CreateImage(hbm, UI_OWNERSHIP_COPY, ppimg);
-			if (FAILED(hr))
-			{
-				return hr;
-			}
-
-			DeleteObject(hbm);
-		}
-		return hr;
+		(void)DeleteObject(hbm);
 	}
+
+	return hr;
+}
 
 STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
                    UI_EXECUTIONVERB verb, 
@@ -73,7 +72,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 		case cmdHome_LifeGrid_Bias:
 		case cmdHome_LifeGrid_Initialise:
 			{
-				PostMessage(hWnd, WM_COMMAND, nCmdID, 0);
+				PostMessageW(hWnd, WM_COMMAND, nCmdID, 0);
 			}
 			break;
 		
@@ -97,36 +96,36 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 					g_Variables.Initialisation = (INITIALISATION)selected;
 
 					/*hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_ALLPROPERTIES, NULL);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_ALLPROPERTIES, NULL);
-					if (FAILED(hr)) {return hr;}*/
+					if (FAILED(hr)) { return hr; }*/
 
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_Label);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_TooltipTitle);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_TooltipDescription);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_LargeImage);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_SmallImage);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_Label);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_TooltipTitle);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_TooltipDescription);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_LargeImage);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 					hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_SmallImage);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			break;
@@ -143,22 +142,25 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 							g_Variables.UniformMin = 0;
 							break;
 						case UI_COLLECTION_INVALIDINDEX: // The new selection is a value that the user typed.
-							if (pCommandExecutionProperties != NULL)
+							if (pCommandExecutionProperties)
 							{
 								PROPVARIANT var;
-								pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
-								BSTR bstr = var.bstrVal;
-								ULONG newSize;
+								PropVariantInit(&var);
 
-								hr = VarUI4FromStr(bstr,GetUserDefaultLCID(),0,&newSize);
+								hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+								if (FAILED(hr)) { return hr; }
+
+								BSTR bstr = var.bstrVal;
+								ULONG newSize = 0UL;
+
+								hr = VarUI4FromStr(bstr, GetUserDefaultLCID(), 0, &newSize);
                     
 								if (FAILED(hr))
 								{
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"VarUI4FromStr Error", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
 								else if (newSize < 0 || newSize > (UINT)pow(2.0, (int)((g_Variables.BitsPerPixel - 8)/3)))
@@ -166,7 +168,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"0 <= x <= 256", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
 								else if (newSize > g_Variables.UniformMax)
@@ -174,11 +176,13 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"Min < Max", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
+
 								g_Variables.UniformMin = newSize;
-								PropVariantClear(&var);
+
+								hr = PropVariantClear(&var);
 							}
 							break;
 						}
@@ -186,6 +190,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 					else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 					{
 						UINT selected = ppropvarValue->uintVal;
+
 						switch (selected)
 						{
 						case 0:
@@ -195,10 +200,13 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 							if (pCommandExecutionProperties != NULL)
 							{
 								PROPVARIANT var;
-								pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
+								PropVariantInit(&var);
+
+								hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+								if (FAILED(hr)) { return hr; }
+
 								BSTR bstr = var.bstrVal;
-								ULONG newSize;
+								ULONG newSize = 0UL;
 
 								hr = VarUI4FromStr(bstr,GetUserDefaultLCID(),0,&newSize);
                     
@@ -218,8 +226,10 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable1, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
+
 								g_Variables.NormalMean = newSize;
-								PropVariantClear(&var);
+
+								hr = PropVariantClear(&var);
 							}
 							break;
 						}
@@ -234,6 +244,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 					if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 					{
 						UINT selected = ppropvarValue->uintVal;
+
 						switch (selected)
 						{
 						case 0:
@@ -243,19 +254,22 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 							if (pCommandExecutionProperties != NULL)
 							{
 								PROPVARIANT var;
-								pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-								
-								BSTR bstr = var.bstrVal;
-								ULONG newSize;
+								PropVariantInit(&var);
 
-								hr = VarUI4FromStr(bstr, GetUserDefaultLCID(), 0, &newSize);
+								hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+								if (FAILED(hr)) { return hr; }
+
+								BSTR bstr = var.bstrVal;
+								ULONG newSize = 0UL;
+
+								hr = VarUI4FromStr(bstr, GetUserDefaultLCID(), 0UL, &newSize);
 								
 								if (FAILED(hr))
 								{
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"VarUI4FromStr Error", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
 								else if (newSize < 0 || newSize > (UINT)pow(2.0, (int)((g_Variables.BitsPerPixel - 8)/3)))
@@ -263,7 +277,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"0 <= x <= 256", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
 								else if (newSize < g_Variables.UniformMin)
@@ -271,11 +285,13 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 									MessageBeep(MB_ICONERROR);
 									MessageBox(NULL, L"Max > Min", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 									// Manually changing the text requires invalidating the StringValue property.
-									g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+									hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_EntropyGrid_InitialisationVariable2, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 									break;
 								}
+
 								g_Variables.UniformMax = newSize;
-								PropVariantClear(&var);
+
+								hr = PropVariantClear(&var);
 							}
 							break;
 						}
@@ -283,6 +299,7 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 					else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 					{
 						UINT selected = ppropvarValue->uintVal;
+
 						switch (selected)
 						{
 						case 0:
@@ -292,20 +309,15 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 							if (pCommandExecutionProperties != NULL)
 							{
 								PROPVARIANT var;
-								pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
-								BSTR bstr = var.bstrVal;
+								PropVariantInit(&var);
 
-								UINT length = SysStringLen(bstr); // Ask COM for the size of the BSTR
-								wchar_t *myString = new wchar_t[length+1]; // Note: SysStringLen doesn't include the space needed for the NULL
-
-								wcscpy_s(myString, length+1, bstr);
-								PropVariantClear(&var);
-
-								double newVariance = _wtof(myString);
-								delete [] myString;
+								hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+								if (FAILED(hr)) { return hr; }
 								
-								g_Variables.NormalVariance = newVariance;
+								hr = VarR8FromStr(var.bstrVal, GetUserDefaultLCID(), 0UL, &g_Variables.NormalVariance);
+								if (FAILED(hr)) { return hr; }
+
+								hr = PropVariantClear(&var);
 							}
 							break;
 						}
@@ -337,10 +349,13 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 						if (pCommandExecutionProperties != NULL)
 						{
 							PROPVARIANT var;
-							pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
+							PropVariantInit(&var);
+
+							hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+							if (FAILED(hr)) { return hr; }
+
 							BSTR bstr = var.bstrVal;
-							ULONG newSize;
+							ULONG newSize = 0UL;
 
 							hr = VarUI4FromStr(bstr, GetUserDefaultLCID(), 0, &newSize);
                     
@@ -348,17 +363,18 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 							{
 								MessageBeep(MB_ICONERROR);
 								MessageBox(NULL, L"VarUI4FromStr Error", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_Population, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_Population, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 								break;
 							}
 							else if (newSize > (ULONG)(g_Variables.Width*g_Variables.Height))
 							{
 								newSize = (ULONG)(g_Variables.Width*g_Variables.Height);
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_Population, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_Population, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 							}
 
 							g_Variables.PopulationInitial = newSize;
-							PropVariantClear(&var);
+
+							hr = PropVariantClear(&var);
 						}
 						break;
 					}
@@ -370,47 +386,46 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 				if (key && *key == UI_PKEY_SelectedItem)
 				{
 					UINT selected = ppropvarValue->uintVal;
+
 					switch (selected)
 					{
 					case 0:
-						g_Variables.ReproductionRate = 0;
+						g_Variables.ReproductionRate = 0.0;
 						break;
 					case UI_COLLECTION_INVALIDINDEX: // The new selection is a value that the user typed.
-						if (pCommandExecutionProperties != NULL)
+						if (pCommandExecutionProperties)
 						{
 							PROPVARIANT var;
-							pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
-							BSTR bstr = var.bstrVal;
+							PropVariantInit(&var);
 
-							UINT length = SysStringLen(bstr);        // Ask COM for the size of the BSTR
-							wchar_t *myString = new wchar_t[length+1]; // Note: SysStringLen doesn't include the space needed for the NULL
+							hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+							if (FAILED(hr)) { return hr; }
 
-							wcscpy_s(myString, length+1, bstr);
-							PropVariantClear(&var);
+							double newReproductionRate = 0.0;
 
-							double newReproductionRate = _wtof(myString);
-							delete [] myString;
-                    
+							hr = VarR8FromStr(var.bstrVal, GetUserDefaultLCID(), 0UL, &newReproductionRate);
+
 							if (FAILED(hr))
 							{
 								MessageBeep(MB_ICONERROR);
 								MessageBox(NULL, L"Reproduction Rate", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 								break;
 							}
 							else if (newReproductionRate > 1.0)
 							{
 								newReproductionRate = 1.0;
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 							}
 							else if (newReproductionRate < 0.0)
 							{
 								newReproductionRate = 0.0;
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_ReproductionRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 							}
 
 							g_Variables.ReproductionRate = newReproductionRate;
+
+							hr = PropVariantClear(&var);
 						}
 						break;
 					}
@@ -422,48 +437,47 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 				if (key && *key == UI_PKEY_SelectedItem)
 				{
 					UINT selected = ppropvarValue->uintVal;
+
 					switch (selected)
 					{
 					case 0:
-						g_Variables.DeathRate = 0;
+						g_Variables.DeathRate = 0.0;
 						break;
 					case UI_COLLECTION_INVALIDINDEX: // The new selection is a value that the user typed.
 						if (pCommandExecutionProperties != NULL)
 						{
 							PROPVARIANT var;
-							pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
-                    
-							BSTR bstr = var.bstrVal;
+							PropVariantInit(&var);
 
-							UINT length = SysStringLen(bstr);        // Ask COM for the size of the BSTR
-							wchar_t *myString = new wchar_t[length+1]; // Note: SysStringLen doesn't include the space needed for the NULL
+							hr = pCommandExecutionProperties->GetValue(UI_PKEY_Label, &var); // The text entered by the user is contained in the property set with the pkey UI_PKEY_Label.
+							if (FAILED(hr)) { return hr; }
 
-							wcscpy_s(myString, length+1, bstr);
-							PropVariantClear(&var);
+							double newDeathRate = 0.0;
+							
+							hr = VarR8FromStr(var.bstrVal, GetUserDefaultLCID(), 0UL, &newDeathRate);
 
-							double newDeathRate = _wtof(myString);
-							delete [] myString;
-                    
 							if (FAILED(hr))
 							{
 								MessageBeep(MB_ICONERROR);
 								MessageBox(NULL, L"Death Rate", L"Error", MB_ICONERROR | MB_OK | MB_TASKMODAL);
 								// Manually changing the text requires invalidating the StringValue property.
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 								break;
 							}
 							else if (newDeathRate > 1.0)
 							{
 								newDeathRate = 1.0;
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 							}
 							else if (newDeathRate < 0.0)
 							{
 								newDeathRate = 0.0;
-								g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
+								hr = g_pRibbonFramework->InvalidateUICommand(cmdHome_LifeGrid_DeathRate, UI_INVALIDATIONS_PROPERTY, &UI_PKEY_StringValue);
 							}
 
 							g_Variables.DeathRate = newDeathRate;
+
+							hr = PropVariantClear(&var);
 						}
 						break;
 					}
@@ -496,10 +510,12 @@ STDMETHODIMP CRibbonHandler::Execute(UINT nCmdID,
 //
 //
 //
-STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
-                              __in REFPROPERTYKEY key,
-                              __in_opt const PROPVARIANT* ppropvarCurrentValue,
-                              __out PROPVARIANT* ppropvarNewValue)
+STDMETHODIMP CRibbonHandler::UpdateProperty(
+	UINT nCmdID,
+    __in REFPROPERTYKEY key,
+    __in_opt const PROPVARIANT* ppropvarCurrentValue,
+    __out PROPVARIANT* ppropvarNewValue
+	)
 {
 
 	HRESULT hr = E_FAIL;
@@ -511,7 +527,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.Visualisation, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -520,7 +536,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.OutputToFile, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -529,7 +545,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.Paint, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -538,24 +554,24 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, (bool)(g_Variables.EntropyInitialised && g_Variables.Population), ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.Running, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_Label) //Update the Label of Run control
 			{
 				if (g_Variables.Running)
 				{
 					hr = UIInitPropertyFromString(key, L"Stop", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else
 				{
 					hr = UIInitPropertyFromString(key, L"Run", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_LargeImage)
@@ -615,7 +631,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, (bool)(g_Variables.EntropyInitialised && g_Variables.Population), ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -624,7 +640,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, (bool)(g_Variables.EntropyInitialised || g_Variables.Population), ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -633,7 +649,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.EntropyInitialised, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -642,7 +658,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, (g_Variables.Population > 0)? true : false, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -650,39 +666,31 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				int labelIds[] = {RANDOM_NUMBER_FUNCTION_1, RANDOM_NUMBER_FUNCTION_2};
 
 				// Populate the combobox
-				for (int i = 0; i < _countof(labelIds); i++)
+				for (int i = 0; i < _countof(labelIds) && SUCCEEDED(hr); i++)
 				{
 					// Create a new property set for each item.
-					CRibbonSimplePropertySet* pItem;
+					Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 					hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-					if (FAILED(hr))
-					{
-						pCollection->Release();
-						return hr;
-					}
+					if (FAILED(hr)) { return hr; }
   
 					// Load the label from the resource file.
 					WCHAR wszLabel[MAX_RESOURCE_LENGTH];
-					LoadString(GetModuleHandle(NULL), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
+					(void)LoadStringW(GetModuleHandleW(nullptr), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
 
 					// Initialize the property set with no image, the label that was just loaded, and no category.
-					pItem->InitializeItemProperties(NULL, wszLabel, UI_COLLECTION_INVALIDINDEX);
+					pItem->InitializeItemProperties(nullptr, wszLabel, UI_COLLECTION_INVALIDINDEX);
 
-					pCollection->Add(pItem);
+					hr = pCollection->Add(pItem.Get());
 				}
-				pCollection->Release();
-				hr = S_OK;
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -702,12 +710,12 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.PeriodicBoundaryConditions, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_Enabled)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, false, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -715,39 +723,31 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				int labelIds[] = {INITIALISATION_1, INITIALISATION_2};
 
 				// Populate the combobox with the three layout options.
-				for (int i = 0; i < _countof(labelIds); i++)
+				for (int i = 0; i < _countof(labelIds) && SUCCEEDED(hr); i++)
 				{
 					// Create a new property set for each item.
-					CRibbonSimplePropertySet* pItem;
+					Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 					hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-					if (FAILED(hr))
-					{
-						pCollection->Release();
-						return hr;
-					}
-  
+					if (FAILED(hr)) { return hr; }
+					
 					// Load the label from the resource file.
 					WCHAR wszLabel[MAX_RESOURCE_LENGTH];
-					LoadString(GetModuleHandle(NULL), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
+					(void)LoadStringW(GetModuleHandleW(nullptr), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
 
 					// Initialize the property set with no image, the label that was just loaded, and no category.
-					pItem->InitializeItemProperties(NULL, wszLabel, UI_COLLECTION_INVALIDINDEX);
+					pItem->InitializeItemProperties(nullptr, wszLabel, UI_COLLECTION_INVALIDINDEX);
 
-					pCollection->Add(pItem);
+					hr = pCollection->Add(pItem.Get());
 				}
-				pCollection->Release();
-				hr = S_OK;
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -766,42 +766,33 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Create a new property set for each item.
-				CRibbonSimplePropertySet* pItem;
+				Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 				hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Initialize the property set with no image, the label that was just loaded, and no category.
-				pItem->InitializeItemProperties(NULL, L"0", UI_COLLECTION_INVALIDINDEX);
+				pItem->InitializeItemProperties(nullptr, L"0", UI_COLLECTION_INVALIDINDEX);
 
-				pCollection->Add(pItem);
-
-				pCollection->Release();
-				hr = S_OK;
+				hr = pCollection->Add(pItem.Get());
 			}
 			else if (key == UI_PKEY_Label)
 			{
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Min", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Mean", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_Categories)
@@ -814,50 +805,40 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			{
 				// The default selection of item.
 				hr = UIInitPropertyFromUInt32(UI_PKEY_SelectedItem, 0, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_StringValue)
 			{
-				BSTR bstr;
+				BSTR bstr = nullptr;
 
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = VarBstrFromUI4(g_Variables.UniformMin, GetUserDefaultLCID(), 0, &bstr);
-					if (FAILED(hr))
-					{
-						return hr;
-					}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = VarBstrFromUI4(g_Variables.NormalMean, GetUserDefaultLCID(), 0, &bstr);
-					if (FAILED(hr))
-					{
-						return hr;
-					}
+					if (FAILED(hr)) { return hr; }
 				}
         
 				hr = UIInitPropertyFromString(UI_PKEY_StringValue, bstr, ppropvarNewValue);
+
 				SysFreeString(bstr);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_TooltipTitle)
 			{
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Min", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Mean", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_TooltipDescription)
@@ -865,12 +846,12 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Min", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Mean", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_LargeImage)
@@ -929,42 +910,33 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Create a new property set for each item.
-				CRibbonSimplePropertySet* pItem;
+				Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 				hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Initialize the property set with no image, the label that was just loaded, and no category.
-				pItem->InitializeItemProperties(NULL, L"0", UI_COLLECTION_INVALIDINDEX);
+				pItem->InitializeItemProperties(nullptr, L"0", UI_COLLECTION_INVALIDINDEX);
 
-				pCollection->Add(pItem);
-
-				pCollection->Release();
-				hr = S_OK;
+				hr = pCollection->Add(pItem.Get());
 			}
 			else if (key == UI_PKEY_Label)
 			{
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Max", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Variance", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_Categories)
@@ -977,10 +949,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			{
 				// The default selection of item.
 				hr = UIInitPropertyFromUInt32(UI_PKEY_SelectedItem, 0, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_StringValue)
 			{
@@ -989,21 +958,21 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 					BSTR bstr;
 
 					hr = VarBstrFromUI4(g_Variables.UniformMax, GetUserDefaultLCID(), 0, &bstr);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 
 					hr = UIInitPropertyFromString(UI_PKEY_StringValue, bstr, ppropvarNewValue);
 					SysFreeString(bstr);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					wchar_t wNormalVariance[MAX_RESOURCE_LENGTH];
 
 					hr = StringCchPrintfW(wNormalVariance, MAX_RESOURCE_LENGTH, L"%.6f", g_Variables.NormalVariance);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 
 					hr = UIInitPropertyFromString(UI_PKEY_StringValue, wNormalVariance, ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_TooltipTitle)
@@ -1011,12 +980,12 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Max", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Variance", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_TooltipDescription)
@@ -1024,12 +993,12 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				if (g_Variables.Initialisation == INITIALISATION_UNIFORM)
 				{
 					hr = UIInitPropertyFromString(key, L"Max", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 				else if (g_Variables.Initialisation == INITIALISATION_NORMAL)
 				{
 					hr = UIInitPropertyFromString(key, L"Variance", ppropvarNewValue);
-					if (FAILED(hr)) {return hr;}
+					if (FAILED(hr)) { return hr; }
 				}
 			}
 			else if (key == UI_PKEY_LargeImage)
@@ -1088,39 +1057,31 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				int labelIds[] = {DISSIPATION_1, DISSIPATION_2, DISSIPATION_3};
 
 				// Populate the combobox with the three layout options.
-				for (int i=0; i<_countof(labelIds); i++)
+				for (int i=0; i<_countof(labelIds) && SUCCEEDED(hr); i++)
 				{
 					// Create a new property set for each item.
-					CRibbonSimplePropertySet* pItem;
+					Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 					hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-					if (FAILED(hr))
-					{
-						pCollection->Release();
-						return hr;
-					}
-  
+					if (FAILED(hr)) { return hr; }
+					
 					// Load the label from the resource file.
 					WCHAR wszLabel[MAX_RESOURCE_LENGTH];
-					LoadString(GetModuleHandle(NULL), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
+					(void)LoadStringW(GetModuleHandleW(nullptr), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
 
 					// Initialize the property set with no image, the label that was just loaded, and no category.
-					pItem->InitializeItemProperties(NULL, wszLabel, UI_COLLECTION_INVALIDINDEX);
+					pItem->InitializeItemProperties(nullptr, wszLabel, UI_COLLECTION_INVALIDINDEX);
 
-					pCollection->Add(pItem);
+					hr = pCollection->Add(pItem.Get());
 				}
-				pCollection->Release();
-				hr = S_OK;
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -1139,38 +1100,26 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Create a new property set for each item.
-				CRibbonSimplePropertySet* pItem;
+				Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 				hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				wchar_t wPopulationDefault[MAX_RESOURCE_LENGTH];
 
 				hr = StringCchPrintfW(wPopulationDefault, MAX_RESOURCE_LENGTH, L"%d", g_Variables.PopulationDefault);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Initialize the property set with no image, the label that was just loaded, and no category.
-				pItem->InitializeItemProperties(NULL, wPopulationDefault, UI_COLLECTION_INVALIDINDEX);
+				pItem->InitializeItemProperties(nullptr, wPopulationDefault, UI_COLLECTION_INVALIDINDEX);
 
-				pCollection->Add(pItem);
-
-				pCollection->Release();
-				hr = S_OK;
+				hr = pCollection->Add(pItem.Get());
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -1182,27 +1131,20 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			{
 				// The default selection of item.
 				hr = UIInitPropertyFromUInt32(UI_PKEY_SelectedItem, 0, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_StringValue)
 			{
-				BSTR bstr;
+				BSTR bstr = nullptr;
 
 				hr = VarBstrFromUI4(g_Variables.PopulationInitial, GetUserDefaultLCID(), 0, &bstr);
-				if(FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
         
 				hr = UIInitPropertyFromString(UI_PKEY_StringValue, bstr, ppropvarNewValue);
+
 				SysFreeString(bstr);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1210,40 +1152,26 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
 
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Create a new property set for each item.
-				CRibbonSimplePropertySet* pItem;
+				Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
 
 				hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				wchar_t wReproductionRate[MAX_RESOURCE_LENGTH];
 
 				hr = StringCchPrintfW(wReproductionRate, MAX_RESOURCE_LENGTH, L"%.6f", g_Variables.ReproductionRate);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Initialize the property set with no image, the label that was just loaded, and no category.
-				pItem->InitializeItemProperties(NULL, wReproductionRate, UI_COLLECTION_INVALIDINDEX);
+				pItem->InitializeItemProperties(nullptr, wReproductionRate, UI_COLLECTION_INVALIDINDEX);
 
-				pCollection->Add(pItem);
-
-				pCollection->Release();
-				hr = S_OK;
+				hr = pCollection->Add(pItem.Get());
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -1255,26 +1183,17 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			{
 				// The default selection of item.
 				hr = UIInitPropertyFromUInt32(UI_PKEY_SelectedItem, 0, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 			else if (key == UI_PKEY_StringValue)
 			{
 				wchar_t wReproductionRate[MAX_RESOURCE_LENGTH];
 
 				hr = StringCchPrintfW(wReproductionRate, MAX_RESOURCE_LENGTH, L"%.6f", g_Variables.ReproductionRate);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
         
 				hr = UIInitPropertyFromString(UI_PKEY_StringValue, wReproductionRate, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1282,38 +1201,26 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Create a new property set for each item.
-				CRibbonSimplePropertySet* pItem;
+				Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 				hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				wchar_t wDeathRate[MAX_RESOURCE_LENGTH];
 
 				hr = StringCchPrintfW(wDeathRate, MAX_RESOURCE_LENGTH, L"%.6f", g_Variables.DeathRate);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				// Initialize the property set with no image, the label that was just loaded, and no category.
-				pItem->InitializeItemProperties(NULL, wDeathRate, UI_COLLECTION_INVALIDINDEX);
+				pItem->InitializeItemProperties(nullptr, wDeathRate, UI_COLLECTION_INVALIDINDEX);
 
-				pCollection->Add(pItem);
-
-				pCollection->Release();
-				hr = S_OK;
+				hr = pCollection->Add(pItem.Get());
 			}
 			else if (key == UI_PKEY_Categories)
 			{
@@ -1335,16 +1242,10 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				wchar_t wDeathRate[MAX_RESOURCE_LENGTH];
 
 				hr = StringCchPrintfW(wDeathRate, MAX_RESOURCE_LENGTH, L"%.6f", g_Variables.DeathRate);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
         
 				hr = UIInitPropertyFromString(UI_PKEY_StringValue, wDeathRate, ppropvarNewValue);
-				if (FAILED(hr))
-				{
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1353,7 +1254,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.Intelligence, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1362,7 +1263,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 			if (key == UI_PKEY_BooleanValue)
 			{
 				hr = UIInitPropertyFromBoolean(UI_PKEY_BooleanValue, g_Variables.Bias, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1382,7 +1283,7 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 				}
 
 				hr = UIInitPropertyFromUInt32(key, contextAvailabilityPaint, ppropvarNewValue);
-				if (FAILED(hr)) {return hr;}
+				if (FAILED(hr)) { return hr; }
 			}
 		}
 		break;
@@ -1390,39 +1291,31 @@ STDMETHODIMP CRibbonHandler::UpdateProperty(UINT nCmdID,
 		{
 			if (key == UI_PKEY_ItemsSource)
 			{
-				IUICollection* pCollection;
+				Microsoft::WRL::ComPtr<IUICollection> pCollection;
+
 				hr = ppropvarCurrentValue->punkVal->QueryInterface(IID_PPV_ARGS(&pCollection));
-				if (FAILED(hr))
-				{
-					pCollection->Release();
-					return hr;
-				}
+				if (FAILED(hr)) { return hr; }
 
 				int labelIds[] = {LAYER_1, LAYER_2};
 
 				// Populate the combobox with the three layout options.
-				for (int i=0; i<_countof(labelIds); i++)
+				for (int i = 0; i < _countof(labelIds) && SUCCEEDED(hr); i++)
 				{
 					// Create a new property set for each item.
-					CRibbonSimplePropertySet* pItem;
+					Microsoft::WRL::ComPtr<CRibbonSimplePropertySet> pItem;
+
 					hr = CRibbonSimplePropertySet::CreateInstance(&pItem);
-					if (FAILED(hr))
-					{
-						pCollection->Release();
-						return hr;
-					}
+					if (FAILED(hr)) { return hr; }
   
 					// Load the label from the resource file.
 					WCHAR wszLabel[MAX_RESOURCE_LENGTH];
-					LoadString(GetModuleHandle(NULL), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
+					(void)LoadStringW(GetModuleHandleW(nullptr), labelIds[i], wszLabel, MAX_RESOURCE_LENGTH);
 
 					// Initialize the property set with no image, the label that was just loaded, and no category.
-					pItem->InitializeItemProperties(NULL, wszLabel, UI_COLLECTION_INVALIDINDEX);
+					pItem->InitializeItemProperties(nullptr, wszLabel, UI_COLLECTION_INVALIDINDEX);
 
-					pCollection->Add(pItem);
+					hr = pCollection->Add(pItem.Get());
 				}
-				pCollection->Release();
-				hr = S_OK;
 			}
 			else if (key == UI_PKEY_Categories)
 			{

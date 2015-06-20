@@ -4,21 +4,9 @@
 #include <d2d1helper.h>
 #include <wincodec.h>
 
-template<class Interface>
-inline void SafeRelease(Interface **ppInterfaceToRelease)
-{
-    if (*ppInterfaceToRelease != NULL)
-    {
-        (*ppInterfaceToRelease)->Release();
-
-        (*ppInterfaceToRelease) = NULL;
-    }
-}
-
 class Direct2DRenderer
 {
 public:
-    Direct2DRenderer();
     ~Direct2DRenderer();
 
 	HRESULT CreateDeviceIndependentResources();
@@ -40,27 +28,28 @@ private:
     void DiscardDeviceResources();
 
 	HRESULT CreateFileFromLayer(
-    IWICImagingFactory *pIWICFactory,
-    PCWSTR uri,
-    UINT destinationWidth,
-    UINT destinationHeight,
-    LAYER layer,
-	GUID guidContainerFormat
-    );
+		IWICImagingFactory *pIWICFactory,
+		PCWSTR uri,
+		UINT destinationWidth,
+		UINT destinationHeight,
+		LAYER layer,
+		GUID guidContainerFormat
+		);
 
 	HRESULT CreateLayerFromFile(
-    IWICImagingFactory *pIWICFactory,
-    PCWSTR uri,
-    UINT destinationWidth,
-    UINT destinationHeight,
-    LAYER layer
-    );
+		IWICImagingFactory *pIWICFactory,
+		PCWSTR uri,
+		UINT destinationWidth,
+		UINT destinationHeight,
+		LAYER layer
+		);
 
-	HWND m_hwnd;
-    ID2D1Factory *m_pD2DFactory;
-    IWICImagingFactory *m_pWICFactory;
-    ID2D1HwndRenderTarget *m_pRenderTarget;
-	ID2D1Bitmap *m_pBitmapEntropy;
-	ID2D1Bitmap *m_pBitmapLife;
-	FLOAT m_dpiX, m_dpiY;
+	HWND m_hwnd = nullptr;
+	Microsoft::WRL::ComPtr<ID2D1Factory> m_pD2DFactory;
+	Microsoft::WRL::ComPtr<IWICImagingFactory> m_pWICFactory;
+	Microsoft::WRL::ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget;
+	Microsoft::WRL::ComPtr<ID2D1Bitmap> m_pBitmapEntropy;
+	Microsoft::WRL::ComPtr<ID2D1Bitmap> m_pBitmapLife;
+	FLOAT m_dpiX = 96.0F;
+	FLOAT m_dpiY = 96.0F;
 };

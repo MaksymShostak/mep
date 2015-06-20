@@ -34,7 +34,7 @@ STDMETHODIMP CRibbonApplication::OnViewChanged(UINT32 /*nViewID*/, __in UI_VIEWT
 				GetClientRect(hWnd, &recthWnd);
 				LPARAM lParam = MAKELPARAM(recthWnd.right-recthWnd.left, recthWnd.bottom-recthWnd.top);
 
-				SendMessage(hWnd, WM_SIZE, NULL, lParam);
+				SendMessageW(hWnd, WM_SIZE, NULL, lParam);
 
 				/*IUIRibbon* pRibbon = NULL;
                 UINT uRibbonHeight;
@@ -75,12 +75,15 @@ STDMETHODIMP CRibbonApplication::OnViewChanged(UINT32 /*nViewID*/, __in UI_VIEWT
 //
 STDMETHODIMP CRibbonApplication::OnCreateUICommand(UINT32 /*nCmdID*/, __in UI_COMMANDTYPE /*typeID*/, __deref_out IUICommandHandler** ppCommandHandler)
 {
-	CRibbonHandler *pRibbonHandler = nullptr;
+	CRibbonHandler* pRibbonHandler = nullptr;
+
 	HRESULT hr = CRibbonHandler::CreateInstance(&pRibbonHandler);
+
 	if (SUCCEEDED(hr))
 	{
 		hr = pRibbonHandler->QueryInterface(IID_PPV_ARGS(ppCommandHandler));
-		pRibbonHandler->Release();
+
+		SafeRelease(&pRibbonHandler);
 	}
 
     return hr;

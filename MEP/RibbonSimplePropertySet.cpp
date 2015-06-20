@@ -21,7 +21,9 @@
 void CRibbonSimplePropertySet::InitializeCommandProperties(int categoryId, int commandId, UI_COMMANDTYPE commandType)
 {
     m_categoryId = categoryId;
+
     m_commandId = commandId;
+
     m_commandType = commandType;
 }
 
@@ -36,12 +38,15 @@ void CRibbonSimplePropertySet::InitializeCommandProperties(int categoryId, int c
 //
 void CRibbonSimplePropertySet::InitializeItemProperties(IUIImage *image, __in PCWSTR label, int categoryId)
 {
-    m_pimgItem = image;
-    if (m_pimgItem)
-    {
-        m_pimgItem->AddRef();
-    }
+	if (image)
+	{
+		m_pimgItem = image;
+
+		m_pimgItem->AddRef();
+	}
+
     StringCchCopyW(m_wszLabel, MAX_RESOURCE_LENGTH, label);
+
     m_categoryId = categoryId;
 }
 
@@ -57,6 +62,7 @@ void CRibbonSimplePropertySet::InitializeItemProperties(IUIImage *image, __in PC
 void CRibbonSimplePropertySet::InitializeCategoryProperties(__in PCWSTR label, int categoryId)
 {
     StringCchCopyW(m_wszLabel, MAX_RESOURCE_LENGTH, label);
+
     m_categoryId = categoryId;
 }
 
